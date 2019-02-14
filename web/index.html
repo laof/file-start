@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>shared-files</title>
+  <link rel="shared icon" type="image/x-icon" href="./static/file.ico">
 </head>
+
 <body>
-  <h1>fdsfa</h1>
+  <h3>list</h3>
+  <form action="/upload" enctype="multipart/form-data" method="post">
+    <input type="file" name="upload" multiple="multiple">
+    <input type="submit" value="Upload">
+  </form>
+  <div class="list"></div>
+
   <script src="./static/jquery3.3.1.min..js"></script>
+  <script>
+    $.ajax({
+      method: 'post',
+      url: '/list',
+      success: function (data) {
+        let arr = [];
+        if (Array.isArray(data)) {
+          data.forEach(v => {
+            arr.push(`<p><a href="${v}">${v}</a></p>`);
+          })
+        }
+        $('.list').html(arr.join(''));
+      }, error: function (err) {
+      }
+    })
+  </script>
 </body>
+
 </html>
