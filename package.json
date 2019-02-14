@@ -1,0 +1,23 @@
+{
+  "name": "shared-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laof/shared-files.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laof/shared-files/issues"
+  },
+  "homepage": "https://github.com/laof/shared-files#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
