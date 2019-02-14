@@ -11,13 +11,14 @@
 
 <body>
   <h3>list</h3>
-  <form action="/upload" enctype="multipart/form-data" method="post">
+  <form id="dataform" action="/upload" enctype="multipart/form-data" method="post" onsubmit="return uploadFiles();">
     <input type="file" name="upload" multiple="multiple">
     <input type="submit" value="Upload">
   </form>
   <div class="list"></div>
 
-  <script src="./static/jquery3.3.1.min..js"></script>
+  <script src="./static/jquery3.3.1.min.js"></script>
+  <script src="./static/jquery-form.js"></script>
   <script>
     $.ajax({
       method: 'post',
@@ -33,6 +34,15 @@
       }, error: function (err) {
       }
     })
+
+
+    function uploadFiles() {
+      $("#dataform").ajaxSubmit(function (message) {
+        console.log(message);
+        // window.location.reload();
+      });
+      return false;
+    }
   </script>
 </body>
 

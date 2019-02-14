@@ -35,9 +35,7 @@ function uploadFile(req, res) {
             res.end("invalid request: " + err.message);
             return;
         }
-        res.writeHead(200, { 'content-type': 'text/plain' });
-        res.write('received fields:\n\n ' + util.inspect(fields));
-        res.write('\n\n');
+     
         files.upload.forEach(v => {
             let newPath = path.join(uploadDir, v.originalFilename);
             if (fs.existsSync(newPath)) {
@@ -45,7 +43,10 @@ function uploadFile(req, res) {
             }
             fs.renameSync(v.path, newPath);
         })
-        res.end('received files:\n\n ' + util.inspect(files));
+        res.send({
+            fields:util.inspect(fields),
+            files:util.inspect(files)
+        });
     });
 };
 
