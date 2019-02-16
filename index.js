@@ -1,20 +1,23 @@
-// const express = require('express');
-// const path = require('path');
-// const router = require('./app/router');
-// const { sharedPath, port } = require('./app/config');
-// const app = express();
-// const dirname = __dirname;
-// const static = path.join(dirname, 'web');
-// const shared = path.join(dirname, 'shared');
+const express = require('express');
+const path = require('path');
+const router = require('./app/router');
+const {
+    sharedPath,
+    port
+} = require('./app/config');
+const {
+    IPAdress
+} = require('./app/address');
+const app = express();
+const dirname = __dirname;
+const web = path.join(dirname, 'web');
+router.boot(app);
 
-// router.boot(app);
+app.use(express.static(web));
+app.use(express.static(sharedPath));
 
-// app.use(express.static(static));
-// app.use(express.static(sharedPath));
-
-
-// app.listen(port, () => {
-//     console.log('http://localhost:' + port);
-// });
+app.listen(port, () => {
+    console.log(`\n  http://localhost:${port}   \n  http://${IPAdress}:${port}`);
+});
 
 console.log(process.argv);
