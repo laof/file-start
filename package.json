@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "fs-serve": "./index.js"
+    "servethis": "./index.js"
   },
   "repository": {
     "type": "git",
