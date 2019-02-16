@@ -7,43 +7,61 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>shared-files</title>
   <link rel="shared icon" type="image/x-icon" href="./static/file.ico">
+  <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./static/style.css">
 </head>
 
 <body>
-  <h3>list</h3>
-  <form id="dataform" action="/upload" enctype="multipart/form-data" method="post" onsubmit="return uploadFiles();">
-    <input type="file" name="upload" multiple="multiple">
-    <input type="submit" value="Upload">
-  </form>
-  <div class="list"></div>
+
+  <div class="top">
+    <div class="path-container">
+      <p class="path">loading...</p>
+    </div>
+    <ul class="nav-bar">
+      <li class="nav-li" index="1">Home</li>
+      <li class="nav-li" index="3">Back</li>
+      <li class="nav-li" index="4">Upload</li>
+      <li class="nav-li" index="2">Rfresh</li>
+      <li class="nav-li" index="5" id="mode-btn">loading...</li>
+      <!-- <li class="path"></li> -->
+    </ul>
+
+
+    <!-- <button class="back-home">home</button> -->
+    <!-- <span class="glyphicon glyphicon-home back-home"></span> -->
+    <!-- <span class="glyphicon glyphicon-refresh refresh"></span>
+    <span class="glyphicon glyphicon-share-alt go-back"></span>
+    <span class="glyphicon glyphicon-download-alt" title="download mode"></span>
+    <span class="glyphicon glyphicon-eye-open" title="view mode"></span>
+    <span class="glyphicon glyphicon-open upload"></span>
+    <span class="path"></span>
+    <button>下载</button> -->
+  </div>
+  <!-- 内容 -->
+  <div class="content">
+    <div class="file-container">
+      <ul class="file-list">
+      </ul>
+      <div style="height: 42px">
+        <span class="file-total"></span>
+        <p class="submit-file">submit</p>
+      </div>
+    </div>
+    <form id="dataForm" class="upload-form" action="/upload" enctype="multipart/form-data" method="post" onsubmit="return uploadFiles();">
+      <input type="file" name="upload" id="file-control" multiple="multiple">
+      <input type="input" name="dir" id="upload-dir">
+      <input type="submit" id="upload-submit" value="Upload">
+    </form>
+    <div id="dir-list"></div>
+    <div class="serve-error">
+      <p><span class="glyphicon glyphicon-remove-sign"></span></p>
+      <p class="message"></p>
+    </div>
+  </div>
 
   <script src="./static/jquery3.3.1.min.js"></script>
   <script src="./static/jquery-form.js"></script>
-  <script>
-    $.ajax({
-      method: 'post',
-      url: '/list',
-      success: function (data) {
-        let arr = [];
-        if (Array.isArray(data)) {
-          data.forEach(v => {
-            arr.push(`<p><a href="${v}">${v}</a></p>`);
-          })
-        }
-        $('.list').html(arr.join(''));
-      }, error: function (err) {
-      }
-    })
-
-
-    function uploadFiles() {
-      $("#dataform").ajaxSubmit(function (message) {
-        console.log(message);
-        // window.location.reload();
-      });
-      return false;
-    }
-  </script>
+  <script src="./static/view-engine.js"></script>
 </body>
 
 </html>

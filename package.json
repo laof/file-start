@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/laof/shared-files#readme",
   "dependencies": {
+    "directory-tree": "^2.2.1",
     "express": "^4.16.4",
-    "multiparty": "^4.2.1"
+    "multiparty": "^4.2.1",
+    "serve-static": "^1.13.2"
   }
 }

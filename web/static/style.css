@@ -1,0 +1,224 @@
+p {
+    margin: 0;
+}
+
+/* ---------------public------------- */
+
+ul,
+ol {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+li {
+    list-style: none;
+}
+
+.serve-error,
+.upload-form {
+    display: none;
+    text-align: center;
+}
+
+.label-name,
+.path,
+.item-size {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.label-name,
+.path,
+.item-size {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.no-file {
+    text-align: center;
+    padding: 30px;
+}
+
+/* ---------------glyphicon------------- */
+.glyphicon {
+    cursor: pointer;
+    user-select: none;
+}
+
+.top .glyphicon {
+    font-size: 18px;
+    color: #fff;
+}
+
+.item .glyphicon {
+    font-size: 40px;
+}
+
+.glyphicon-file {
+    color: #8e8e8e;
+}
+
+.glyphicon-remove-sign {
+    color: red;
+    font-size: 40px;
+}
+
+.glyphicon-open {
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+
+.item:hover .glyphicon-file {
+    color: #a5a5a5;
+}
+
+.glyphicon-folder-open {
+    color: #eecb4a;
+}
+
+.item:hover .glyphicon-folder-open {
+    color: #ffb300;
+}
+
+/* ------------------- nav ----------------- */
+
+.nav-bar li {
+    font-size: 12px;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 5px;
+    border: 1px solid #eee;
+    padding: 5px 7px;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.nav-bar li:hover {
+    color: bisque;
+}
+
+.nav-bar .glyphicon {
+    font-size: 12px;
+}
+
+.path-container {
+    height: 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.path {
+    font-size: 14px;
+    line-height: 14px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+/* ---------------end glyphicon------------- */
+
+
+
+/* --------------- top ------------- */
+
+.top {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: #007acc;
+    border: 1px solid #007acc;
+}
+
+
+
+/* --------------- centent ------------- */
+
+.item {
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: 110px;
+    height: 110px;
+    padding: 5px;
+}
+
+.item:hover .label-name,
+.item:hover .item-size {
+    color: #218dd6;
+}
+
+
+
+.item-size {
+    font-weight: bold;
+}
+
+
+.content {
+    padding-top: 86px;
+}
+
+
+/* ----------      file list      --------- */
+
+
+.file-list {
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.file-list li {
+    margin: 5px 0;
+    padding: 8px;
+    background: #fff;
+}
+
+.file-list label {
+    font-weight: normal;
+}
+
+.file-list span {
+    font-weight: bold;
+    margin-right: 30px;
+}
+
+.submit-file {
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    background: #007acc;
+    margin: auto;
+    position: relative;
+    width: 100px;
+    border-radius: 3px;
+    margin-right: 20px;
+    padding: 10px;
+    float: right;
+    color: #fff;
+}
+
+.file-container {
+    display: none;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.file-total {
+    padding: 10px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #007acc;
+    font-weight: bold;
+}

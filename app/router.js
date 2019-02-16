@@ -1,61 +1,57 @@
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 const multiparty = require('multiparty');
-const { sharedPath, uploadDir } = require('./config');
-
-function fileDisplay(filePath) {
-    const files = fs.readdirSync(filePath);
-    if (Array.isArray(files)) {
-        files.forEach((filename) => {
-            const filedir = path.join(filePath, filename);
-            const stats = fs.statSync(filedir);
-            if (stats) {
-                const isFile = stats.isFile();
-                const isDir = stats.isDirectory();
-                if (isFile) {
-                    const litter = filedir.replace(sharedPath, '');
-                    temp.push(litter);
-                } else if (isDir) {
-                    fileDisplay(filedir);
-                }
-            }
-        });
-    }
-}
+const dirTree = require('directory-tree');
+const {
+    sharedPath,
+    uploadDir
+} = require('./config');
 
 function uploadFile(req, res) {
     const opts = {
         uploadDir
     }
     const form = new multiparty.Form(opts);
+
     form.parse(req, (err, fields, files) => {
+        let success = false;
         if (err) {
-            res.writeHead(400, { 'content-type': 'text/plain' });
-            res.end("invalid request: " + err.message);
+            res.send({
+                success
+            });
             return;
         }
-     
-        files.upload.forEach(v => {
-            let newPath = path.join(uploadDir, v.originalFilename);
-            if (fs.existsSync(newPath)) {
-                newPath = v.path + v.originalFilename;
-            }
-            fs.renameSync(v.path, newPath);
-        })
+        try {
+            const dir = fields.dir[0];
+            const pathArry = dir.split('/');
+            files.upload.forEach(v => {
+                let newPath = path.join(...pathArry, v.originalFilename);
+                if (fs.existsSync(newPath)) {
+                    newPath = v.path + v.originalFilename;
+                }
+                fs.renameSync(v.path, newPath);
+            })
+            success = true;
+        } catch (e) {}
+
         res.send({
-            fields:util.inspect(fields),
-            files:util.inspect(files)
+            success,
+            fields,
+            files
         });
     });
 };
 
+const replacePath = sharedPath.split(path.sep).join('/');
 
-let temp = [];
 function list(req, res) {
-    temp = [];
-    fileDisplay(sharedPath);
-    res.send(temp);
+    const map = dirTree(sharedPath, {
+        /** split flag: '\' */
+        normalizePath: true
+    }, (item, PATH, stats) => {
+        item.download = item.path.replace(replacePath, '');
+    })
+    res.send(map);
 }
 
 
