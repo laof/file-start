@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const express = require('express');
 const path = require('path');
 const router = require('./app/router');
@@ -21,3 +22,4 @@ app.listen(port, () => {
 });
 
 console.log(process.argv);
+console.log(process.cwd());
