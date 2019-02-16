@@ -7,7 +7,10 @@ const {
 } = require('./config');
 
 function uploadFile(req, res) {
-    
+
+    const opts = {
+        uploadDir: sharedPath
+    }
     const form = new multiparty.Form(opts);
 
     form.parse(req, (err, fields, files) => {
