@@ -3,14 +3,11 @@ const path = require('path');
 const multiparty = require('multiparty');
 const dirTree = require('directory-tree');
 const {
-    sharedPath,
-    uploadDir
+    sharedPath
 } = require('./config');
 
 function uploadFile(req, res) {
-    const opts = {
-        uploadDir
-    }
+    
     const form = new multiparty.Form(opts);
 
     form.parse(req, (err, fields, files) => {

@@ -21,5 +21,3 @@ app.listen(port, () => {
     console.log(`\n  http://localhost:${port}   \n  http://${IPAdress}:${port}`);
 });
 
-console.log(process.argv);
-console.log(process.cwd());
