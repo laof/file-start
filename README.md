@@ -2,13 +2,13 @@
 
 ![Image text](https://laof.github.io/home/static/images/shared.png)
 
-# Install
+# install
 
 - npm install -g shared-files
-# Startup service
+# startup service
 
 - shared or
 - shared 8083
-# Open
+# open
 
 - http://xxxxxxxxx:8083/
