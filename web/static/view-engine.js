@@ -23,6 +23,8 @@ $(function () {
         }
     }
 
+    var loading = $('#my-modal-loading');
+
     function setMap(item) {
         var children = item.children;
         if (children && children.length) {
@@ -163,9 +165,12 @@ $(function () {
         }
         $('#dir-list').html(dom);
     }
+
+    loading.modal('open');
     $.post({
         url: '/list',
         success: function (data) {
+            loading.modal('close');
             if (data && data.path) {
                 var home = data.path;
                 var path = storage.getPath() || home;
@@ -177,6 +182,7 @@ $(function () {
             }
         },
         error: function (err) {
+            loading.modal('close');
             message.show('服务器发生意外情况，无法完成请求');
         }
     })
@@ -185,7 +191,7 @@ $(function () {
         var num = 1024.00;
         //byte
         if (!size) {
-            return '';
+            return ' ';
         }
         if (size < num) {
             return size + 'B';
@@ -257,7 +263,7 @@ $(function () {
     })
 
 
-    var loading = $('#my-modal-loading');
+    
 
 
     /**upload */
