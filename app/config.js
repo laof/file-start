@@ -3,7 +3,7 @@ const path = require('path');
 const sharedPath = path.join(process.cwd());
 const MaxPort = 65535;
 const MinPort = 20;
-let port = 8718;
+let port = 4549;
 
 const argv = process.argv.reverse();
 

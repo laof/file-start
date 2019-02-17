@@ -38,7 +38,7 @@ $(function () {
     function createTags(list) {
         var arr = [];
         $.each(list, function (i, v) {
-            var size = toMB(v.size);
+            var size = toSize(v.size);
             var isFile = v.type == 'file';
             var icon = isFile ? 'am-icon-file' : 'am-icon-folder';
             var click = isFile ? '' : 'onclick="next(\'' + v.path + '\')"';
@@ -181,9 +181,28 @@ $(function () {
         }
     })
 
-    function toMB(numb) {
-        var size = Number(numb) / 1024 / 1024;
-        return size.toFixed(2) + 'Mb';
+    function toSize(size) {
+        var num = 1024.00;
+        //byte
+        if (!size) {
+            return '';
+        }
+        if (size < num) {
+            return size + 'B';
+        }
+        if (size < Math.pow(num, 2)) {
+            return (size / num).toFixed(2) + 'K';
+        }
+        //kb
+        if (size < Math.pow(num, 3)) {
+            return (size / Math.pow(num, 2)).toFixed(2) + 'M';
+        }
+        //M
+        if (size < Math.pow(num, 4)) {
+            return (size / Math.pow(num, 3)).toFixed(2) + 'G';
+        }
+        //G
+        return (size / Math.pow(num, 4)).toFixed(2) + 'T';
     }
 
 
@@ -192,11 +211,13 @@ $(function () {
         var fs = document.getElementById('file-control');
         var submit = $('.file-container');
         if (fs && fs.files && fs.files.length) {
+            var size = 0;
             $.each(fs.files, function (i, v) {
-                list.push(['<li><span>', v.name, '</span><label>', toMB(v.size), '</label></li>'].join(''));
+                size += v.size;
+                list.push(['<li><span>', v.name, '</span><label>', toSize(v.size), '</label></li>'].join(''));
             })
             $('.file-list').html(list.join(''));
-            $('.file-total').html('Total: ' + fs.files.length);
+            $('.file-total').html('Total: ' + fs.files.length + ' , size: ' + toSize(size));
             submit.show();
         } else {
             submit.hide();
