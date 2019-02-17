@@ -1,14 +1,12 @@
 # shared-files
 
-http://nodejs.cn/api/
+![Image text](https://laof.github.io/home/static/images/shared.png)
 
-http://www.expressjs.com.cn/4x/api.html
+# Install
+- npm install -g shared-files
 
-https://github.com/pillarjs/multiparty
-
-
-https://www.npmjs.com/package/directory-tree
-
-npm install  multer --registry=https://registry.npm.taobao.org
-
-http://www.amazeui.org
+# run:  
+- shared
+- shared 8083
+# open
+- http://xxxxxxxxx:8083/
