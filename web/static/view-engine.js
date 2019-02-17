@@ -43,7 +43,7 @@ $(function () {
         $.each(list, function (i, v) {
             var size = toMB(v.size);
             var isFile = v.type == 'file';
-            var icon = isFile ? 'glyphicon-file' : 'glyphicon-folder-open';
+            var icon = isFile ? 'am-icon-file' : 'am-icon-folder';
             var click = isFile ? '' : 'onclick="next(\'' + v.path + '\')"';
             var title = v.name + '\n' + size;
             var str = ['<div class="item" ',
@@ -187,6 +187,42 @@ $(function () {
         return size.toFixed(2) + 'Mb';
     }
 
+    function uploadProgress(evt) {
+        if (evt.lengthComputable) {
+            var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+            document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+        } else {
+            document.getElementById('progressNumber').innerHTML = '无法计算';
+        }
+    }
+
+    function uploadComplete(evt) {
+        /* 当服务器响应后，这个事件就会被触发 */
+        alert(evt.target.responseText);
+    }
+
+    function uploadFailed(evt) {
+        alert("上传文件发生了错误尝试");
+    }
+
+    function uploadCanceled(evt) {
+        alert("上传被用户取消或者浏览器断开连接");
+    }
+
+
+    function uploadFile() {
+        var xhr = new XMLHttpRequest();
+        var fd = document.getElementById('form1').getFormData();
+
+        /* 事件监听 */
+        xhr.upload.addEventListener("progress", uploadProgress, false);
+        xhr.addEventListener("load", uploadComplete, false);
+        xhr.addEventListener("error", uploadFailed, false);
+        xhr.addEventListener("abort", uploadCanceled, false);
+        /* 下面的url一定要改成你要发送文件的服务器url */
+        xhr.open("POST", "UploadMinimal.aspx");
+        xhr.send(fd);
+    }
 
     $('#file-control').on('change', function (e) {
         var list = [];
@@ -204,7 +240,7 @@ $(function () {
         }
     });
 
-    $('.nav-li').click(function () {
+    $('.nav-bar .am-btn').click(function () {
         var dom = $(this);
         var index = dom.attr('index');
         var home = memory.homePath;
@@ -247,6 +283,15 @@ $(function () {
 
 
     /** upload */
+
+    var progress = $.AMUI.progress;
+    $('#np-s').on('click', function () {
+        progress.start();
+    });
+
+    $('#np-d').on('click', function () {
+        progress.done();
+    });
 
     global.uploadFiles = function () {
         var form = $("#dataForm");

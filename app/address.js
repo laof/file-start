@@ -1,14 +1,20 @@
 const interfaces = require('os').networkInterfaces();
-let IPAdress = '';
-for (var devName in interfaces) {
-    var iface = interfaces[devName];
-    for (var i = 0; i < iface.length; i++) {
-        var alias = iface[i];
-        if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-            IPAdress = alias.address;
+
+const getNetworkAddress = () => {
+    for (const name of Object.keys(interfaces)) {
+        for (const interface of interfaces[name]) {
+            const {
+                address,
+                family,
+                internal
+            } = interface;
+            if (family === 'IPv4' && !internal) {
+                return address;
+            }
         }
     }
-}
+};
+
 module.exports = {
-    IPAdress
+    IPAdress: getNetworkAddress()
 }

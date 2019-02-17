@@ -28,17 +28,22 @@ li {
     white-space: nowrap;
 }
 
-.label-name,
-.path,
-.item-size {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .no-file {
     text-align: center;
     padding: 30px;
+}
+
+.upload-btn {
+    float: right;
+}
+
+.loading {
+    user-select: none;
+    height: 80px;
+}
+
+.dir-bar .am-btn {
+    min-width: 46px;
 }
 
 /* ---------------glyphicon------------- */
@@ -83,27 +88,6 @@ li {
     color: #ffb300;
 }
 
-/* ------------------- nav ----------------- */
-
-.nav-bar li {
-    font-size: 12px;
-    display: inline-block;
-    cursor: pointer;
-    user-select: none;
-    margin-right: 5px;
-    border: 1px solid #eee;
-    padding: 5px 7px;
-    color: #fff;
-    border-radius: 2px;
-}
-
-.nav-bar li:hover {
-    color: bisque;
-}
-
-.nav-bar .glyphicon {
-    font-size: 12px;
-}
 
 .path-container {
     height: 20px;
@@ -115,6 +99,7 @@ li {
     font-size: 14px;
     line-height: 14px;
     color: #fff;
+    text-align: center;
     margin-bottom: 8px;
 }
 
@@ -154,9 +139,7 @@ li {
     color: #218dd6;
 }
 
-
-
-.item-size {
+.label-name {
     font-weight: bold;
 }
 
@@ -190,22 +173,12 @@ li {
     margin-right: 30px;
 }
 
-.submit-file {
-    user-select: none;
-    cursor: pointer;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
-    background: #007acc;
-    margin: auto;
-    position: relative;
-    width: 100px;
-    border-radius: 3px;
-    margin-right: 20px;
-    padding: 10px;
-    float: right;
-    color: #fff;
+.submit-container {
+    height: 42px;
+    padding-right: 22px;
+    text-align: right;
 }
+
 
 .file-container {
     display: none;
