@@ -11,4 +11,4 @@
 - shared 8083
 # open
 
-- http://xxxxxxxxx:8083/
+- http://192.168.1.94:8083/
