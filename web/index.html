@@ -28,27 +28,18 @@
         <button type="button" index="2" class="am-btn am-btn-xs am-btn-default"><i class="am-icon-refresh"></i></button>
         <button type="button" index="3" class="am-btn am-btn-xs am-btn-default"><i class="am-icon-mail-reply"></i></button>
       </div>
-      <div class="am-btn-group" data-am-button>
+      <div class="am-btn-group mode-group" data-am-button>
         <label class="am-btn am-btn-default am-btn-xs">
-          <input type="radio" name="options" value="选项 1" id="option1"><i class="am-icon-hand-o-up"></i>
+          <input type="radio" name="mode-options" value="1" class="view-mode" checked><i class="am-icon-hand-o-up"></i>
         </label>
         <label class="am-btn am-btn-default am-btn-xs">
-          <input type="radio" name="options" value="选项 2" id="option2"><i class="am-icon-arrow-circle-down"></i>
+          <input type="radio" name="mode-options" value="2" class="download-mode"><i class="am-icon-arrow-circle-down"></i>
         </label>
       </div>
       <button type="button" index="4" class="am-btn am-btn-xs am-btn-secondary upload-btn"><i class="am-icon-cloud-upload"></i></button>
-      <!-- <button type="button" index="5" class="am-btn am-btn-xs am-btn-success "><i class="am-icon-eye"></i></button> -->
-      <!-- <button type="button" index="5" class="am-btn am-btn-xs am-btn-success">download <i class="am-icon-cloud-download"></i></button> -->
 
     </div>
 
-    <!-- <ul class="nav-bar">
-      <li class="nav-li" index="1">Home</li>
-      <li class="nav-li" index="3">Back</li>
-      <li class="nav-li" index="4">Upload</li>
-      <li class="nav-li" index="2">Rfresh</li>
-      <li class="nav-li" index="5" id="mode-btn">loading...</li>
-    </ul> -->
   </div>
 
   <!-- 内容 -->
@@ -67,11 +58,34 @@
       <input type="submit" id="upload-submit" value="Upload">
     </form>
     <div id="dir-list"></div>
-    <div class="serve-error">
-      <p><span class="glyphicon glyphicon-remove-sign"></span></p>
-      <p class="message"></p>
+
+  </div>
+
+  <!-- modal -->
+
+  <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+    <div class="am-modal-dialog">
+      <div class="am-modal-bd">
+        <div class="serve-error">
+          <p><span class="am-icon-exclamation-circle error-icon"></span></p>
+          <p class="message"></p>
+        </div>
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn">OK</span>
+      </div>
     </div>
   </div>
+
+  <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+      <div class="am-modal-hd">upload...</div>
+      <div class="am-modal-bd">
+        <span class="am-icon-spinner am-icon-spin"></span>
+      </div>
+    </div>
+  </div>
+
   <script src="./static/jquery3.3.1.min.js"></script>
   <script src="./assets/js/amazeui.min.js"></script>
   <script src="./static/jquery-form.js"></script>

@@ -15,14 +15,11 @@ $(function () {
     }
 
     var message = {
-        dom: $('.serve-error'),
+        dom: $('#my-alert'),
         mes: $('.message'),
         show: function (str) {
             this.mes.html(str);
-            this.dom.show();
-        },
-        hide: function () {
-            this.dom.hide();
+            this.dom.modal('open');
         }
     }
 
@@ -50,7 +47,7 @@ $(function () {
                 click,
                 ' title="',
                 title,
-                '"><span class="glyphicon ',
+                '"><span class="icon ',
                 icon,
                 '" aria-hidden="true"> </span>',
                 '<p class="item-size" >', size, '</p>',
@@ -103,38 +100,40 @@ $(function () {
 
     memory.mode = storage.getMode() || mode.view;
 
-    var modeStaus = {
-        dom: $('#mode-btn'),
-        downText: 'Download Mode',
-        viewText: 'View Mode',
+    var modeInst = {
         init: function () {
-            var dom = this.dom;
+            var dom;
             if (memory.mode == mode.view) {
-                dom.html(this.viewText);
+                dom = $('.view-mode');
             } else {
-                dom.html(this.downText);
+                dom = $('.download-mode');
             }
+            dom.trigger('click');
         },
-        change: function () {
-            var dom = this.dom;
-            var view = memory.mode == mode.view;
+        change: function (status) {
+            var view = status == mode.view;
             var attr = 'download';
             var files = $('.item-file');
             if (view) {
-                dom.html(this.downText);
+                files.removeAttr(attr);
+            } else {
                 files.each(function () {
                     var file = $(this);
                     file.attr(attr, file.attr('download-name'));
                 })
-            } else {
-                dom.html(this.viewText);
-                files.removeAttr(attr);
             }
-            storage.setMode(view ? mode.down : mode.view);
+            storage.setMode(status);
         }
     }
 
-    modeStaus.init();
+    // 切换模式
+    var modeRadios = $('[name=mode-options]');
+    modeRadios.on('change', function () {
+        var value = modeRadios.filter(':checked').val();
+        modeInst.change(value == 1 ? mode.view : mode.down);
+    });
+
+    modeInst.init();
 
     function currentPath(path) {
         storage.setPath(path);
@@ -187,42 +186,6 @@ $(function () {
         return size.toFixed(2) + 'Mb';
     }
 
-    function uploadProgress(evt) {
-        if (evt.lengthComputable) {
-            var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-            document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-        } else {
-            document.getElementById('progressNumber').innerHTML = '无法计算';
-        }
-    }
-
-    function uploadComplete(evt) {
-        /* 当服务器响应后，这个事件就会被触发 */
-        alert(evt.target.responseText);
-    }
-
-    function uploadFailed(evt) {
-        alert("上传文件发生了错误尝试");
-    }
-
-    function uploadCanceled(evt) {
-        alert("上传被用户取消或者浏览器断开连接");
-    }
-
-
-    function uploadFile() {
-        var xhr = new XMLHttpRequest();
-        var fd = document.getElementById('form1').getFormData();
-
-        /* 事件监听 */
-        xhr.upload.addEventListener("progress", uploadProgress, false);
-        xhr.addEventListener("load", uploadComplete, false);
-        xhr.addEventListener("error", uploadFailed, false);
-        xhr.addEventListener("abort", uploadCanceled, false);
-        /* 下面的url一定要改成你要发送文件的服务器url */
-        xhr.open("POST", "UploadMinimal.aspx");
-        xhr.send(fd);
-    }
 
     $('#file-control').on('change', function (e) {
         var list = [];
@@ -268,17 +231,18 @@ $(function () {
             case 4:
                 $('#file-control').trigger('click');
                 break;
-                /**切换模式 */
-            case 5:
-                modeStaus.change();
-                break;
         }
 
     })
 
+
+    var loading = $('#my-modal-loading');
+
+
     /**upload */
     $('.submit-file').click(function () {
         $('#upload-submit').trigger('click');
+        loading.modal('open');
     });
 
 
@@ -296,6 +260,7 @@ $(function () {
     global.uploadFiles = function () {
         var form = $("#dataForm");
         form.ajaxSubmit(function (data) {
+            loading.modal('close');
             if (data.success) {
                 location.reload();
             } else {

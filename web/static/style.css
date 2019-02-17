@@ -14,7 +14,6 @@ li {
     list-style: none;
 }
 
-.serve-error,
 .upload-form {
     display: none;
     text-align: center;
@@ -26,6 +25,11 @@ li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.error-icon {
+    font-size: 50px;
+    color: #fb4c4c;
 }
 
 .no-file {
@@ -46,45 +50,19 @@ li {
     min-width: 46px;
 }
 
-/* ---------------glyphicon------------- */
-.glyphicon {
-    cursor: pointer;
-    user-select: none;
-}
+/* ---------------item ------------- */
 
-.top .glyphicon {
-    font-size: 18px;
-    color: #fff;
-}
-
-.item .glyphicon {
+.item .icon {
     font-size: 40px;
 }
 
-.glyphicon-file {
-    color: #8e8e8e;
-}
-
-.glyphicon-remove-sign {
-    color: red;
-    font-size: 40px;
-}
-
-.glyphicon-open {
-    font-size: 16px;
-    margin-top: 8px;
-}
-
-
-.item:hover .glyphicon-file {
-    color: #a5a5a5;
-}
-
-.glyphicon-folder-open {
+.am-icon-folder,
+.am-icon-file {
     color: #eecb4a;
 }
 
-.item:hover .glyphicon-folder-open {
+.item:hover .am-icon-folder,
+.item:hover .am-icon-file {
     color: #ffb300;
 }
 
@@ -103,7 +81,7 @@ li {
     margin-bottom: 8px;
 }
 
-/* ---------------end glyphicon------------- */
+/* ---------------end item------------- */
 
 
 
@@ -119,7 +97,6 @@ li {
     background: #007acc;
     border: 1px solid #007acc;
 }
-
 
 
 /* --------------- centent ------------- */
