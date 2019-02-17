@@ -10,15 +10,20 @@
   "bin": {
     "shared": "./index.js"
   },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/laof/shared-files.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/laof/shared-files/issues"
   },
+
+  "keywords": ["shared", "share", "file", "upload", "shared files"],
   "homepage": "https://github.com/laof/shared-files#readme",
   "dependencies": {
     "directory-tree": "^2.2.1",
