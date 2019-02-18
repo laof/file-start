@@ -55,8 +55,8 @@ function uploadFile(req, res) {
                 const newPath = getNewPate(pathstr, path.parse(pathstr).name);
                 fs.renameSync(v.path, newPath);
             })
+            success = true;
         } catch (e) {
-            success = false;
         }
 
         res.send({
