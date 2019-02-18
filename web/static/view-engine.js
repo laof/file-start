@@ -6,12 +6,18 @@ $(function () {
     var memory = {
         path: '',
         mode: '',
+        gridList: '',
         homePath: ''
     };
 
     var mode = {
         view: 'view', //default
         down: 'down'
+    }
+
+    var GridList = {
+        grid: 'grid', //default
+        list: 'list'
     }
 
     var message = {
@@ -42,7 +48,7 @@ $(function () {
         $.each(list, function (i, v) {
             var size = toSize(v.size);
             var isFile = v.type == 'file';
-            var icon = isFile ? 'am-icon-file' : 'am-icon-folder';
+            var icon = isFile ? 'am-icon-file-text' : 'am-icon-folder-open';
             var click = isFile ? '' : 'onclick="next(\'' + v.path + '\')"';
             var title = v.name + '\n' + size;
             var str = ['<div class="item" ',
@@ -52,8 +58,8 @@ $(function () {
                 '"><span class="icon ',
                 icon,
                 '" aria-hidden="true"> </span>',
-                '<p class="item-size" >', size, '</p>',
-                '<p class="label-name" >', v.name, '</p></div>'
+                '<p class="label-name" >', v.name, '</p>',
+                '<p class="item-size" >', size, '</p></div>',
             ].join('');
             if (isFile) {
                 var down = memory.mode == mode.down;
@@ -69,6 +75,7 @@ $(function () {
         stor: global.localStorage,
         pathKey: '_l_o_v_a_path1550299839288',
         modeKey: '_l_o_v_a_mode1550299839288',
+        gridListKey: '_l_o_v_a_grid_list1550299839288',
         _base: function (key, value) {
             var stor = this.stor
             if (stor) {
@@ -94,13 +101,21 @@ $(function () {
         getMode: function () {
             return this._base(this.modeKey);
         },
-        setMode: function (number) {
-            memory.mode = number;
-            this._base(this.modeKey, number);
+        setMode: function (str) {
+            memory.mode = str;
+            this._base(this.modeKey, str);
+        },
+        getGridList: function () {
+            return this._base(this.gridListKey);
+        },
+        setGridList: function (str) {
+            memory.gridList = str;
+            this._base(this.gridListKey, str);
         }
     }
 
     memory.mode = storage.getMode() || mode.view;
+    memory.gridList = storage.getGridList() || GridList.grid;
 
     var modeInst = {
         init: function () {
@@ -161,31 +176,12 @@ $(function () {
             });
             dom = createTags(directory) + createTags(files);
         } else {
-            storage.removePath();
+            return update(memory.homePath);
         }
         $('#dir-list').html(dom);
     }
 
-    loading.modal('open');
-    $.post({
-        url: '/list',
-        success: function (data) {
-            loading.modal('close');
-            if (data && data.path) {
-                var home = data.path;
-                var path = storage.getPath() || home;
-                memory.homePath = home;
-                setMap(data);
-                update(path);
-            } else {
-                message.show('数据错误');
-            }
-        },
-        error: function (err) {
-            loading.modal('close');
-            message.show('服务器发生意外情况，无法完成请求');
-        }
-    })
+
 
     function toSize(size) {
         var num = 1024.00;
@@ -220,7 +216,7 @@ $(function () {
             var size = 0;
             $.each(fs.files, function (i, v) {
                 size += v.size;
-                list.push(['<li><span>', v.name, '</span><label>', toSize(v.size), '</label></li>'].join(''));
+                list.push(['<li><span>', v.name, '</span><span>', toSize(v.size), '</span></li>'].join(''));
             })
             $('.file-list').html(list.join(''));
             $('.file-total').html('Total: ' + fs.files.length + ' , size: ' + toSize(size));
@@ -263,7 +259,7 @@ $(function () {
     })
 
 
-    
+
 
 
     /**upload */
@@ -284,6 +280,18 @@ $(function () {
         progress.done();
     });
 
+    var listGridDom = $('.list-grid').on('click', function (event) {
+        $(this).find('i').toggleClass('current-hide');
+        $('#dir-list').toggleClass('tabulation')
+        if (event.offsetY) {
+            storage.setGridList(memory.gridList === GridList.grid ? GridList.list : GridList.grid);
+        }
+    })
+
+    if (memory.gridList === GridList.list) {
+        listGridDom.trigger('click');
+    }
+
     global.uploadFiles = function () {
         var form = $("#dataForm");
         form.ajaxSubmit(function (data) {
@@ -301,4 +309,27 @@ $(function () {
     global.next = function (key) {
         update(key);
     }
+
+
+    /** loading */
+    loading.modal('open');
+    $.post({
+        url: '/list',
+        success: function (data) {
+            loading.modal('close');
+            if (data && data.path) {
+                var home = data.path;
+                var path = storage.getPath() || home;
+                memory.homePath = home;
+                setMap(data);
+                update(path);
+            } else {
+                message.show('数据错误');
+            }
+        },
+        error: function (err) {
+            loading.modal('close');
+            message.show('服务器发生意外情况，无法完成请求');
+        }
+    })
 });

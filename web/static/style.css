@@ -1,4 +1,11 @@
 /* ---------------public------------- */
+body {
+    font-family: "Microsoft YaHei", "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", sans-serif;
+}
+
+label {
+    padding-bottom: 0;
+}
 
 a {
     color: black;
@@ -17,6 +24,10 @@ ol {
 
 li {
     list-style: none;
+}
+
+.current-hide {
+    display: none;
 }
 
 .upload-form {
@@ -55,21 +66,31 @@ li {
     min-width: 46px;
 }
 
+
+
 /* ---------------item ------------- */
 
+/* --------------grid------------------- */
 .item .icon {
     font-size: 40px;
 }
 
-.am-icon-folder,
-.am-icon-file {
-    color: #eecb4a;
+.am-icon-folder-open {
+    color: #deb51e;
 }
 
-.item:hover .am-icon-folder,
-.item:hover .am-icon-file {
-    color: #ffb300;
+.am-icon-file-text {
+    color: #989898;
 }
+
+.item:hover .am-icon-folder-open {
+    color: #d09b1f;
+}
+
+.item:hover .am-icon-file-text {
+    color: #82817f;
+}
+
 
 
 .path-container {
@@ -84,6 +105,28 @@ li {
     color: #fff;
     text-align: center;
     margin-bottom: 8px;
+}
+
+
+/* -------------list----------- */
+
+
+.tabulation .item {
+    display: flex;
+    width: 100%;
+    height: 33px;
+}
+
+.tabulation .item .icon {
+    font-size: 16px;
+    width: 40px;
+    line-height: 40px;
+}
+
+.tabulation .label-name,
+.tabulation .item-size {
+    line-height: 40px;
+    padding-left: 8px;
 }
 
 /* ---------------end item------------- */
@@ -111,9 +154,9 @@ li {
     cursor: pointer;
     text-align: center;
     display: inline-block;
-    width: 110px;
+    width: 150px;
     height: 110px;
-    padding: 5px;
+    padding: 0 2px;
 }
 
 .item:hover .label-name,
@@ -123,8 +166,12 @@ li {
 
 .label-name {
     font-weight: bold;
+    font-size: 12px;
 }
 
+.item-size {
+    font-size: 12px;
+}
 
 .content {
     padding-top: 86px;
@@ -143,6 +190,7 @@ li {
 .file-list li {
     margin: 5px 0;
     padding: 8px;
+    font-size: 12px;
     background: #fff;
 }
 

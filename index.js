@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const express = require('express');
 const path = require('path');
 const router = require('./app/router');
@@ -20,4 +21,3 @@ app.use(express.static(sharedPath));
 app.listen(port, () => {
     console.log(`\n  http://localhost:${port}   \n  http://${IPAdress}:${port}`);
 });
-

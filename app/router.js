@@ -6,6 +6,27 @@ const {
     sharedPath
 } = require('./config');
 
+function getNewPate(pathstr, fileName) {
+    let exists = true;
+    let index = 0;
+    const {
+        dir,
+        ext
+    } = path.parse(pathstr);
+    while (exists) {
+        if (fs.existsSync(pathstr)) {
+            const newBase = fileName + (++index) + ext;
+            pathstr = path.format({
+                dir,
+                base: newBase
+            })
+        } else {
+            exists = false;
+        }
+    }
+    return pathstr;
+}
+
 function uploadFile(req, res) {
 
     const opts = {
@@ -22,17 +43,21 @@ function uploadFile(req, res) {
             return;
         }
         try {
-            const dir = fields.dir[0];
-            const pathArry = dir.split('/');
             files.upload.forEach(v => {
-                let newPath = path.join(...pathArry, v.originalFilename);
-                if (fs.existsSync(newPath)) {
-                    newPath = v.path + v.originalFilename;
-                }
+                const {
+                    dir
+                } = path.parse(v.path);
+
+                const pathstr = path.format({
+                    dir,
+                    base: v.originalFilename // 带后缀 'name.txt'
+                })
+                const newPath = getNewPate(pathstr, path.parse(pathstr).name);
                 fs.renameSync(v.path, newPath);
             })
-            success = true;
-        } catch (e) {}
+        } catch (e) {
+            success = false;
+        }
 
         res.send({
             success,
