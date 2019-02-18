@@ -187,7 +187,7 @@ $(function () {
         var num = 1024.00;
         //byte
         if (!size) {
-            return ' ';
+            return 'size';
         }
         if (size < num) {
             return size + 'B';

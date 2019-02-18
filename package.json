@@ -1,6 +1,6 @@
 {
   "name": "shared-files",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "url": "https://github.com/laof/shared-files/issues"
   },
 
-  "keywords": ["shared", "share", "file", "upload", "shared files", "Network Neighborhood"],
+  "keywords": ["shared", "share", "file", "upload", "shared files", "Network Neighborhood", "LAN"],
   "homepage": "https://github.com/laof/shared-files#readme",
   "dependencies": {
     "directory-tree": "^2.2.1",
