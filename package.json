@@ -1,6 +1,6 @@
 {
   "name": "shared-files",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A Simple File Sharing Service in LAN",
   "main": "index.js",
   "scripts": {
