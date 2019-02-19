@@ -3,6 +3,11 @@ $(function () {
     var global = window;
     var fileMap = {};
 
+    var AjaxUrl = {
+        list: '/list',
+        upload: '/upload'
+    }
+
     var memory = {
         path: '',
         mode: '',
@@ -294,10 +299,8 @@ $(function () {
     global.uploadFiles = function () {
         var form = $("#dataForm");
         form.ajaxSubmit(function (data) {
-            if (data.success) {
+            if (data && data.success) {
                 location.reload();
-            } else {
-                message.show('文件路径错误');
             }
         });
         return false;
@@ -312,36 +315,43 @@ $(function () {
     var loading = $('#my-modal-loading');
     $(document).ajaxStart(function () {
         loading.modal('open');
-    }).ajaxComplete(function (err) {
-        console.log('ajaxComplete');
-        console.log(this);
-        loading.modal('close');
-    }).ajaxError(function (eee) {
-        console.log('ajaxError');
-        console.log(this);
-        loading.modal('close');
-        message.show('服务器发生意外情况，无法完成请求');
-    });
+    }).ajaxComplete(function (event, response, request) {
 
-    // loading.modal('open');
-    // loading.modal('close');
+        loading.modal('close');
 
-    // message.show('服务器发生意外情况，无法完成请求');
+        if (response.status == 200) {
+            const data = response.responseJSON || {};
+            if (data.success) {
+                return;
+            }
+            let mes = '';
+            const url = request.url;
+            // list
+            if (url === AjaxUrl.list) {
+                mes = '读取文件失败';
+                // upload
+            } else {
+                mes = '文件路径错误';
+            }
+            if (mes) {
+                message.show(mes);
+            }
+
+        } else {
+            message.show('服务器发生意外情况，无法完成请求');
+        }
+    })
 
     $.post({
-        url: '/list',
+        url: AjaxUrl.list,
         success: function (data) {
-            console.log('success');
-            if (data && data.path) {
+            if (data && data.success) {
                 var home = data.path;
                 var path = storage.getPath() || home;
                 memory.homePath = home;
                 setMap(data);
                 update(path);
-            } else {
-                message.show('数据错误');
             }
-
         }
     })
 });
