@@ -29,25 +29,25 @@ function getNewPate(pathstr, fileName) {
 
 function uploadFile(req, res) {
 
+    let success = false;
+
     const opts = {
         uploadDir: sharedPath
     }
     const form = new multiparty.Form(opts);
 
     form.parse(req, (err, fields, files) => {
-        let success = false;
-        if (err) {
+
+        const dir = fields.dir[0];
+        if (err || !dir) {
             res.send({
+                err,
                 success
             });
             return;
         }
         try {
             files.upload.forEach(v => {
-                const {
-                    dir
-                } = path.parse(v.path);
-
                 const pathstr = path.format({
                     dir,
                     base: v.originalFilename // 带后缀 'name.txt'
@@ -56,13 +56,18 @@ function uploadFile(req, res) {
                 fs.renameSync(v.path, newPath);
             })
             success = true;
-        } catch (e) {
-        }
+        } catch (e) {}
 
         res.send({
             success,
             fields,
             files
+        });
+    });
+    form.on('error', (err) => {
+        res.send({
+            err,
+            success
         });
     });
 };

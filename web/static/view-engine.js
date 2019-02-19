@@ -29,7 +29,7 @@ $(function () {
         }
     }
 
-    var loading = $('#my-modal-loading');
+
 
     function setMap(item) {
         var children = item.children;
@@ -265,7 +265,6 @@ $(function () {
     /**upload */
     $('.submit-file').click(function () {
         $('#upload-submit').trigger('click');
-        loading.modal('open');
     });
 
 
@@ -295,13 +294,11 @@ $(function () {
     global.uploadFiles = function () {
         var form = $("#dataForm");
         form.ajaxSubmit(function (data) {
-            loading.modal('close');
             if (data.success) {
                 location.reload();
             } else {
                 message.show('文件路径错误');
             }
-
         });
         return false;
     }
@@ -312,11 +309,29 @@ $(function () {
 
 
     /** loading */
-    loading.modal('open');
+    var loading = $('#my-modal-loading');
+    $(document).ajaxStart(function () {
+        loading.modal('open');
+    }).ajaxComplete(function (err) {
+        console.log('ajaxComplete');
+        console.log(this);
+        loading.modal('close');
+    }).ajaxError(function (eee) {
+        console.log('ajaxError');
+        console.log(this);
+        loading.modal('close');
+        message.show('服务器发生意外情况，无法完成请求');
+    });
+
+    // loading.modal('open');
+    // loading.modal('close');
+
+    // message.show('服务器发生意外情况，无法完成请求');
+
     $.post({
         url: '/list',
         success: function (data) {
-            loading.modal('close');
+            console.log('success');
             if (data && data.path) {
                 var home = data.path;
                 var path = storage.getPath() || home;
@@ -326,10 +341,7 @@ $(function () {
             } else {
                 message.show('数据错误');
             }
-        },
-        error: function (err) {
-            loading.modal('close');
-            message.show('服务器发生意外情况，无法完成请求');
+
         }
     })
 });
