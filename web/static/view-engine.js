@@ -179,7 +179,7 @@ $(function () {
                     directory.push(v);
                 }
             });
-            if (directory.length && files.length) {
+            if (directory.length || files.length) {
                 dom = createTags(directory) + createTags(files);
             }
         } else {
