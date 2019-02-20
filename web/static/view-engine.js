@@ -38,11 +38,11 @@ $(function () {
 
     function setMap(item) {
         var children = item.children;
-        if (children && children.length) {
+        if (children) {
             if (!fileMap[item.path] && item.type != 'file') {
                 fileMap[item.path] = children;
             }
-            $.each(item.children, function (i, v) {
+            $.each(children, function (i, v) {
                 setMap(v);
             })
         }
@@ -168,7 +168,7 @@ $(function () {
         var dom = '<h4 class="no-file">No resources</h4>';
         var data = fileMap[key];
         currentPath(key);
-        if (data && data.length) {
+        if (data) {
             var directory = [];
             var files = [];
             $.each(data, function (i, v) {
@@ -179,7 +179,9 @@ $(function () {
                     directory.push(v);
                 }
             });
-            dom = createTags(directory) + createTags(files);
+            if (directory.length && files.length) {
+                dom = createTags(directory) + createTags(files);
+            }
         } else {
             return update(memory.homePath);
         }
@@ -192,7 +194,7 @@ $(function () {
         var num = 1024.00;
         //byte
         if (!size) {
-            return 'size';
+            return 'No size';
         }
         if (size < num) {
             return size + 'B';
