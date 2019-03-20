@@ -22,12 +22,20 @@
   "bugs": {
     "url": "https://github.com/laof/shared-files/issues"
   },
-
-  "keywords": ["shared", "share", "file", "upload", "shared files", "Network Neighborhood", "LAN"],
+  "keywords": [
+    "shared",
+    "share",
+    "file",
+    "upload",
+    "shared files",
+    "Network Neighborhood",
+    "LAN"
+  ],
   "homepage": "https://github.com/laof/shared-files#readme",
   "dependencies": {
     "directory-tree": "^2.2.1",
     "express": "^4.16.4",
-    "multiparty": "^4.2.1"
+    "multiparty": "^4.2.1",
+    "socket.io": "^2.2.0"
   }
 }

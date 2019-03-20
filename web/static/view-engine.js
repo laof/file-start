@@ -1,5 +1,15 @@
 $(function () {
 
+    // var socket = io('http://localhost');
+    // socket.on('connect', function () {
+    //     console.log('data');
+    // });
+    // socket.on('event', function (data) {
+    //     console.log(data);
+    // });
+    // socket.on('disconnect', function () {});
+
+
     var global = window;
     var fileMap = {};
 
@@ -274,9 +284,7 @@ $(function () {
         $('#upload-submit').trigger('click');
     });
 
-
     /** upload */
-
     var progress = $.AMUI.progress;
     $('#np-s').on('click', function () {
         progress.start();
