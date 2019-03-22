@@ -1,13 +1,40 @@
 $(function () {
 
-    // var socket = io('http://localhost');
-    // socket.on('connect', function () {
-    //     console.log('data');
-    // });
-    // socket.on('event', function (data) {
-    //     console.log(data);
-    // });
-    // socket.on('disconnect', function () {});
+    var socket = io('http://localhost:5200');
+    socket.on('connect', function () {
+        console.log('data');
+        socket.emit('chat message', '哒哒');
+    });
+    socket.on('event', function (data) {
+        console.log(data);
+    });
+    socket.on('chat message', function (data) {
+        console.log(data);
+    });
+    socket.on('disconnect', function () {});
+
+
+    $('#send-message').on('click', function () {
+        socket.emit('chat message', '哒哒:' + new Date().getTime());
+    })
+
+    $('th').on('click', function () {
+        var select = 'select';
+        $('th').removeClass(select);
+        $(this).addClass(select);
+        var type = $(this).attr('type');
+        switch (Number(type)) {
+            case 1:
+                $('.files').show();
+                $('.chat').hide();
+                break;
+
+            case 2:
+                $('.files').hide();
+                $('.chat').show();
+                break;
+        }
+    })
 
 
     var global = window;

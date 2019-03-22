@@ -174,6 +174,7 @@ li {
 
 .content {
     padding-top: 86px;
+    padding-bottom: 70px;
 }
 
 
@@ -223,4 +224,33 @@ li {
     font-size: 16px;
     color: #007acc;
     font-weight: bold;
+}
+
+
+.footer {
+    height: 60px;
+    background: #292929;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+table,
+tr {
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+}
+
+
+.select,
+th:hover {
+    color: #007acc;
 }
