@@ -30,11 +30,17 @@ li {
     padding-right: 90px;
 }
 
+.show-time {
+    font-size: 12px;
+    color: #218dd6;
+}
+
 .my {
     padding-left: 90px;
 }
 
 .my p {
+    font-size: 12px;
     color: blue;
     text-align: right;
 }
@@ -61,7 +67,7 @@ li {
     border-radius: 6px;
 }
 
-.talk-list li{
+.talk-list li {
     margin: 10px 0;
 }
 
@@ -71,6 +77,7 @@ li {
 }
 
 .talk-list p {
+    font-size: 12px;
     padding: 0 2px;
 }
 

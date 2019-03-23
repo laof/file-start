@@ -111,14 +111,14 @@ $(function () {
         var p = $('<p/>');
         var myself = data.author === myId;
 
-        var time = getDate(new Date(data.time));
+        var time = '<span class="show-time">' + getDate(new Date(data.time)) + '</span>';
 
         if (myself) {
             li.addClass('my');
             p.html(time);
         } else {
             li.addClass('other');
-            p.html(data.author + ' ' + time);
+            p.html(time + ' ' + data.author);
         }
 
         li.append(p);
