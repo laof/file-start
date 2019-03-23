@@ -26,13 +26,84 @@ li {
     list-style: none;
 }
 
+.other {
+    padding-right: 90px;
+}
+
+.my {
+    padding-left: 90px;
+}
+
+.my p {
+    color: blue;
+    text-align: right;
+}
+
+.my i {
+    text-align: right;
+}
+
+.other {
+    color: red;
+}
+
+.talk-list pre {
+    margin: 0 2px;
+}
+
+.other i {}
+
 .current-hide {
     display: none;
+}
+
+.talk-list pre {
+    border-radius: 6px;
+}
+
+.talk-list li{
+    margin: 10px 0;
+}
+
+.talk-list {
+    height: 520px;
+    overflow: auto;
+}
+
+.talk-list p {
+    padding: 0 2px;
+}
+
+.chat-main {
+    margin-bottom: 5px;
+    background: #ebe9e6;
 }
 
 .upload-form {
     display: none;
     text-align: center;
+}
+
+.chat-content {
+    padding: 10px;
+}
+
+.chat-content textarea {
+    height: 150px;
+    resize: none;
+}
+
+.files,
+.chat {
+    display: none;
+}
+
+.garbage {
+    font-size: 16px;
+    text-align: center;
+    height: 80px;
+    background: #007acc;
+    color: #fefbfb;
 }
 
 .label-name,
@@ -135,6 +206,7 @@ li {
 /* --------------- top ------------- */
 
 .top {
+    height: 82px;
     z-index: 1;
     position: fixed;
     top: 0;
@@ -143,6 +215,13 @@ li {
     padding: 10px;
     background: #007acc;
     border: 1px solid #007acc;
+}
+
+
+.uuid {
+    text-align: center;
+    color: white;
+    font-size: 30px;
 }
 
 
@@ -228,8 +307,7 @@ li {
 
 
 .footer {
-    height: 60px;
-    background: #292929;
+    background: #2d2c2c;
     position: fixed;
     left: 0;
     right: 0;
@@ -250,7 +328,8 @@ th {
 }
 
 
-.select,
+.footer .select,
 th:hover {
     color: #007acc;
+    background: #292929;
 }

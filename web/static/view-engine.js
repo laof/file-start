@@ -1,44 +1,13 @@
 $(function () {
 
-    var socket = io('http://localhost:5200');
-    socket.on('connect', function () {
-        console.log('data');
-        socket.emit('chat message', '哒哒');
-    });
-    socket.on('event', function (data) {
-        console.log(data);
-    });
-    socket.on('chat message', function (data) {
-        console.log(data);
-    });
-    socket.on('disconnect', function () {});
-
-
-    $('#send-message').on('click', function () {
-        socket.emit('chat message', '哒哒:' + new Date().getTime());
-    })
-
-    $('th').on('click', function () {
-        var select = 'select';
-        $('th').removeClass(select);
-        $(this).addClass(select);
-        var type = $(this).attr('type');
-        switch (Number(type)) {
-            case 1:
-                $('.files').show();
-                $('.chat').hide();
-                break;
-
-            case 2:
-                $('.files').hide();
-                $('.chat').show();
-                break;
-        }
-    })
-
-
     var global = window;
     var fileMap = {};
+
+
+    if (!global.localStorage || !global.WebSocket) {
+        $('body').html('<h1 class="garbage">The version is too low. Please update the version.<h1>');
+        return;
+    }
 
     var AjaxUrl = {
         list: '/list',
@@ -70,6 +39,187 @@ $(function () {
             this.dom.modal('open');
         }
     }
+
+
+    var storage = {
+        stor: global.localStorage,
+        pathKey: '_l_o_v_a_path1550299839288',
+        modeKey: '_l_o_v_a_mode1550299839288',
+        tabsKey: '__l_o_v_a_tabs1550299839288',
+        gridListKey: '_l_o_v_a_grid_list1550299839288',
+        _base: function (key, value) {
+            var stor = this.stor
+            if (stor) {
+                if (value) {
+                    stor.setItem(key, value)
+                } else {
+                    return stor.getItem(key) || ''
+                }
+            }
+            return '';
+        },
+        getPath: function () {
+            return this._base(this.pathKey);
+        },
+        setPath: function (path) {
+            this._base(this.pathKey, path);
+        },
+        removePath: function () {
+            if (this.stor) {
+                this.stor.removeItem(this.pathKey);
+            }
+        },
+        getMode: function () {
+            return this._base(this.modeKey);
+        },
+        setMode: function (str) {
+            memory.mode = str;
+            this._base(this.modeKey, str);
+        },
+        getGridList: function () {
+            return this._base(this.gridListKey);
+        },
+        setGridList: function (str) {
+            memory.gridList = str;
+            this._base(this.gridListKey, str);
+        }
+    }
+
+
+    function guid() {
+        return 'xxyxxxyxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    var myId = guid();
+
+    function getDate(data) {
+        var now = data || new Date();
+        var y = now.getFullYear();
+        var m = now.getMonth() + 1;
+        var d = now.getDate();
+        return now.toTimeString().substr(0, 8);
+    }
+
+
+    function pushMassageList(data) {
+        var li = $('<li/>');
+        var pre = $('<pre/>');
+        var p = $('<p/>');
+        var myself = data.author === myId;
+
+        var time = getDate(new Date(data.time));
+
+        if (myself) {
+            li.addClass('my');
+            p.html(time);
+        } else {
+            li.addClass('other');
+            p.html(data.author + ' ' + time);
+        }
+
+        li.append(p);
+        pre.text(data.text);
+
+        li.append(pre);
+
+        $('.talk-list').append(li);
+
+    }
+
+
+    $('.uuid,.chat-tabs').html(myId);
+
+    var socket = io(location.host);
+    socket.on('connect', function () {
+        socket.emit('chat message', myId);
+    });
+    socket.on('event', function (data) {
+        // console.log(data);
+    });
+    socket.on('chat message', function (data) {
+        pushMassageList(data);
+    });
+    socket.on('disconnect', function () {});
+
+    function changeTabs(type) {
+        var select = 'select';
+        $('th').removeClass(select);
+        $('th[type=' + type + ']').addClass(select);
+        switch (type) {
+            case 'a':
+                $('.files').show();
+                $('.chat').hide();
+                break;
+            case 'b':
+                $('.files').hide();
+                $('.chat').show();
+                break;
+        }
+        localStorage.setItem(storage.tabsKey, type);
+    }
+
+    var currentTabs = localStorage.getItem(storage.tabsKey) || 'a';
+    changeTabs(currentTabs);
+
+    $('th').on('click', function () {
+        var type = $(this).attr('type');
+        changeTabs(type);
+    })
+
+
+    function sentMessage() {
+        var element = $('#input-text');
+        var text = element.val();
+        element.val('').html('').focus().val('');
+        socket.emit('chat message', text);
+    }
+
+    var aaaa = `
+
+    padding-right: 150px;
+}
+
+.other i {}
+
+.current-hide {
+    display: none;
+}
+
+.talk-list{
+    height: 320px;
+    overflow: auto;
+}
+
+.chat-main {
+    <p> fdsafafsafds</p>
+    `
+
+    $('pre').text(aaaa)
+
+
+
+    $('#input-text').keydown(function (e) {
+        var element = $(this);
+        if (e.keyCode === 13) {
+            if (e.ctrlKey) {
+                element.val(element.val() + '\r');
+            } else {
+                sentMessage();
+                return false;
+            }
+        }
+    });
+
+    $('.send-message').on('click', function () {
+        sentMessage();
+    })
+
+
+
 
 
 
@@ -113,48 +263,7 @@ $(function () {
         return arr.join('');
     }
 
-    var storage = {
-        stor: global.localStorage,
-        pathKey: '_l_o_v_a_path1550299839288',
-        modeKey: '_l_o_v_a_mode1550299839288',
-        gridListKey: '_l_o_v_a_grid_list1550299839288',
-        _base: function (key, value) {
-            var stor = this.stor
-            if (stor) {
-                if (value) {
-                    stor.setItem(key, value)
-                } else {
-                    return stor.getItem(key) || ''
-                }
-            }
-            return '';
-        },
-        getPath: function () {
-            return this._base(this.pathKey);
-        },
-        setPath: function (path) {
-            this._base(this.pathKey, path);
-        },
-        removePath: function () {
-            if (this.stor) {
-                this.stor.removeItem(this.pathKey);
-            }
-        },
-        getMode: function () {
-            return this._base(this.modeKey);
-        },
-        setMode: function (str) {
-            memory.mode = str;
-            this._base(this.modeKey, str);
-        },
-        getGridList: function () {
-            return this._base(this.gridListKey);
-        },
-        setGridList: function (str) {
-            memory.gridList = str;
-            this._base(this.gridListKey, str);
-        }
-    }
+
 
     memory.mode = storage.getMode() || mode.view;
     memory.gridList = storage.getGridList() || GridList.grid;
@@ -357,12 +466,12 @@ $(function () {
         loading.modal('close');
 
         if (response.status == 200) {
-            const data = response.responseJSON || {};
+            var data = response.responseJSON || {};
             if (data.success) {
                 return;
             }
             let mes = '';
-            const url = request.url;
+            var url = request.url;
             // list
             if (url === AjaxUrl.list) {
                 mes = '读取文件失败';

@@ -17,34 +17,42 @@
 
   <div class="top">
 
-    <div class="path-container">
-      <p class="path">loading...</p>
-    </div>
-    <!-- nav-bar -->
-    <div class="nav-bar">
-      <div class="am-btn-group dir-bar">
-        <button type="button" title="home" index="1" class="am-btn am-btn-xs am-btn-default"><i
-            class="am-icon-home"></i></button>
-        <button type="button" title="refresh" index="2" class="am-btn am-btn-xs am-btn-default"><i
-            class="am-icon-refresh"></i></button>
-        <button type="button" title="back" index="3" class="am-btn am-btn-xs am-btn-default"><i
-            class="am-icon-mail-reply"></i></button>
+    <div class="files">
+      <div class="path-container">
+        <p class="path">loading...</p>
       </div>
-      <div class="am-btn-group mode-group" data-am-button>
-        <span class="am-btn am-btn-default am-btn-xs" title="view mode">
-          <input type="radio" name="mode-options" value="1" class="view-mode" checked><i class="am-icon-hand-o-up"></i>
-        </span>
-        <span class="am-btn am-btn-default am-btn-xs" title="download mode">
-          <input type="radio" name="mode-options" value="2" class="download-mode"><i
-            class="am-icon-arrow-circle-down"></i>
-        </span>
+      <!-- nav-bar -->
+      <div class="nav-bar">
+        <div class="am-btn-group dir-bar">
+          <button type="button" title="home" index="1" class="am-btn am-btn-xs am-btn-default"><i
+              class="am-icon-home"></i></button>
+          <button type="button" title="refresh" index="2" class="am-btn am-btn-xs am-btn-default"><i
+              class="am-icon-refresh"></i></button>
+          <button type="button" title="back" index="3" class="am-btn am-btn-xs am-btn-default"><i
+              class="am-icon-mail-reply"></i></button>
+        </div>
+        <div class="am-btn-group mode-group" data-am-button>
+          <span class="am-btn am-btn-default am-btn-xs" title="view mode">
+            <input type="radio" name="mode-options" value="1" class="view-mode" checked><i
+              class="am-icon-hand-o-up"></i>
+          </span>
+          <span class="am-btn am-btn-default am-btn-xs" title="download mode">
+            <input type="radio" name="mode-options" value="2" class="download-mode"><i
+              class="am-icon-arrow-circle-down"></i>
+          </span>
+        </div>
+        <button type="button" title="list/grid" class="am-btn am-btn-xs am-btn-default list-grid">
+          <i class="am-icon-align-justify current-hide"></i><i class="am-icon-th"></i>
+        </button>
+        <button type="button" title="upload" index="4" class="am-btn am-btn-xs am-btn-secondary upload-btn"><i
+            class="am-icon-cloud-upload"></i></button>
       </div>
-      <button type="button" title="list/grid" class="am-btn am-btn-xs am-btn-default list-grid">
-        <i class="am-icon-align-justify current-hide"></i><i class="am-icon-th"></i>
-      </button>
-      <button type="button" title="upload" index="4" class="am-btn am-btn-xs am-btn-secondary upload-btn"><i
-          class="am-icon-cloud-upload"></i></button>
     </div>
+
+    <div class="chat">
+      <p class="uuid"></p>
+    </div>
+
 
   </div>
 
@@ -67,16 +75,28 @@
       </form>
       <div id="dir-list"></div>
     </div>
-    <div class="chat">
-      <p>chat dev... </p>
+    <div class="chat chat-content">
+      <div class="chat-main">
+        <ul class="talk-list">
+          <!-- <li class="other">
+            <p>d8a4a996f:</p>
+            <pre></pre>
+          </li>
+        -->
+        </ul>
+      </div>
+      <form class="am-form">
+        <button type="button" class="am-btn send-message am-btn-secondary">send</button>
+        <textarea id="input-text" spellcheck="false" name="" id="" cols="30" rows="10"></textarea>
+      </form>
     </div>
   </div>
 
   <div class="footer">
     <table>
       <tr>
-        <th type="1" class="select">Files</th>
-        <th type="2">Message</th>
+        <th type="a" class="files-tabs">Files</th>
+        <th type="b" class="chat-tabs">loading...</th>
       </tr>
     </table>
   </div>
@@ -112,5 +132,6 @@
   <script src="./static/jquery-form.min.js"></script>
   <script src="./static/view-engine.js"></script>
 </body>
+<!-- http://www.amazeui.org/getting-started?_ver=2.x -->
 
 </html>

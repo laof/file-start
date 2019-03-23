@@ -51,7 +51,7 @@ function boot(io) {
                 obj['type'] = 'message';
                 console.log(client.name + ' say:' + msg);
 
-                // socket.emit('chat message', obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
+                socket.emit('chat message', obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
                 socket.broadcast.emit('chat message', obj); //向其他用户发送消息
 
             }
