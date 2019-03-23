@@ -50,14 +50,13 @@ li {
 }
 
 .other {
-    color: red;
+    color: #1a1414;
 }
 
 .talk-list pre {
     margin: 0 2px;
 }
 
-.other i {}
 
 .current-hide {
     display: none;
