@@ -3,46 +3,14 @@ $(function () {
     var global = window;
     var fileMap = {};
 
-
     if (!global.localStorage || !global.WebSocket) {
         $('body').html('<h1 class="garbage">The version is too low. Please update the version.<h1>');
         return;
     }
 
-    var AjaxUrl = {
-        list: '/list',
-        upload: '/upload'
-    }
-
-    var memory = {
-        path: '',
-        mode: '',
-        gridList: '',
-        homePath: ''
-    };
-
-    var mode = {
-        view: 'view', //default
-        down: 'down'
-    }
-
-    var GridList = {
-        grid: 'grid', //default
-        list: 'list'
-    }
-
-    var message = {
-        dom: $('#my-alert'),
-        mes: $('.message'),
-        show: function (str) {
-            this.mes.html(str);
-            this.dom.modal('open');
-        }
-    }
-
-
     var storage = {
         stor: global.localStorage,
+        myId: '_l_o_v_a_name1550299839288',
         pathKey: '_l_o_v_a_path1550299839288',
         modeKey: '_l_o_v_a_mode1550299839288',
         tabsKey: '__l_o_v_a_tabs1550299839288',
@@ -86,6 +54,39 @@ $(function () {
     }
 
 
+
+
+    var AjaxUrl = {
+        list: '/list',
+        upload: '/upload'
+    }
+
+    var memory = {
+        path: '',
+        mode: '',
+        gridList: '',
+        homePath: ''
+    };
+
+    var mode = {
+        view: 'view', //default
+        down: 'down'
+    }
+
+    var GridList = {
+        grid: 'grid', //default
+        list: 'list'
+    }
+
+    var message = {
+        dom: $('#my-alert'),
+        mes: $('.message'),
+        show: function (str) {
+            this.mes.html(str);
+            this.dom.modal('open');
+        }
+    }
+
     function guid() {
         return 'xxyxxxyxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0,
@@ -94,7 +95,12 @@ $(function () {
         });
     }
 
-    var myId = guid();
+    var myId = localStorage.getItem(storage.myId)
+
+    if (!myId) {
+        myId = guid();
+        localStorage.setItem(storage.myId, myId);
+    }
 
     function getDate(data) {
         var now = data || new Date();
@@ -118,7 +124,7 @@ $(function () {
             p.html(time);
         } else {
             li.addClass('other');
-            p.html(time + ' ' + data.author);
+            p.html(time);
         }
 
         li.append(p);
@@ -175,31 +181,10 @@ $(function () {
         var element = $('#input-text');
         var text = element.val();
         element.val('').html('').focus().val('');
-        socket.emit('chat message', text);
+        if ($.trim(text) !== '') {
+            socket.emit('chat message', text);
+        }
     }
-
-    var aaaa = `
-
-    padding-right: 150px;
-}
-
-.other i {}
-
-.current-hide {
-    display: none;
-}
-
-.talk-list{
-    height: 320px;
-    overflow: auto;
-}
-
-.chat-main {
-    <p> fdsafafsafds</p>
-    `
-
-    $('pre').text(aaaa)
-
 
 
     $('#input-text').keydown(function (e) {

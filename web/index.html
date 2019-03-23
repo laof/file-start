@@ -8,12 +8,10 @@
   <title>shared-files</title>
   <link rel="shared icon" type="image/x-icon" href="./static/shared.ico">
   <link rel="stylesheet" href="./assets/css/amazeui.min.css">
-  <link rel="stylesheet" href="./static/style.css">
+  <link rel="stylesheet/less" type="text/css" href="./static/styles.less" />
 </head>
 
 <body>
-
-
 
   <div class="top">
 
@@ -53,7 +51,6 @@
       <p class="uuid"></p>
     </div>
 
-
   </div>
 
   <!-- 内容 -->
@@ -78,11 +75,28 @@
     <div class="chat chat-content">
       <div class="chat-main">
         <ul class="talk-list">
-          <!-- <li class="other">
-            <p>d8a4a996f:</p>
-            <pre></pre>
+          <li class="my">
+            <table>
+              <tr>
+                <td class="user-info">fdafdaf</td>
+                <td class="text-rea">
+                  <pre>fdaf dafdaf fdafdaf ffda</pre>
+                </td>
+                <td class="user-info show-info">fdafdaf</td>
+              </tr>
+            </table>
           </li>
-        -->
+          <li class="other">
+            <table>
+              <tr>
+                <td class="user-info show-info">fdafdaf</td>
+                <td class="text-rea">
+                  <pre>fdaf dafdaf fdafdaf ffda</pre>
+                </td>
+                <td class="user-info">fdafdaf</td>
+              </tr>
+            </table>
+          </li>
         </ul>
       </div>
       <form class="am-form">
@@ -126,6 +140,7 @@
     </div>
   </div>
 
+  <script src="./static/less.min.js"></script>
   <script src="./static/socket.io.js"></script>
   <script src="./static/jquery3.3.1.min.js"></script>
   <script src="./assets/js/amazeui.min.js"></script>
