@@ -39,7 +39,7 @@ function boot(io) {
                     onlineUsers[client.name] = client.name;
                 }
                 obj['onlineUsers'] = onlineUsers; //当前在线用户集合
-                console.log(client.name + ' login,当前在线人数:' + onlineUserCount);
+                // console.log(client.name + ' login,当前在线人数:' + onlineUserCount);
 
                 //返回欢迎语
                 socket.emit('system', obj); //发送给自己的消息
@@ -50,7 +50,7 @@ function boot(io) {
                 obj['text'] = msg;
                 obj['author'] = client.name;
                 obj['type'] = 'message';
-                console.log(client.name + ' say:' + msg);
+                // console.log(client.name + ' say:' + msg);
 
                 socket.emit('chat message', obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
                 socket.broadcast.emit('chat message', obj); //向其他用户发送消息
@@ -82,7 +82,7 @@ function boot(io) {
 
             //广播用户退出
             socket.broadcast.emit('system', obj); //用户登录和退出都使用system事件播报
-            console.log(client.name + ' disconnect,当前在线人数:' + onlineUserCount);
+            // console.log(client.name + ' disconnect,当前在线人数:' + onlineUserCount);
         });
     });
 }

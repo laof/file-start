@@ -26,5 +26,5 @@ app.use(express.static(web));
 app.use(express.static(sharedPath));
 
 http.listen(port, () => {
-    console.log(`\n  http://localhost:${port}   \n` + host);
+    console.log(`http://localhost:${port}   \n` + host);
 });
