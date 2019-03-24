@@ -48,15 +48,16 @@ function uploadFile(req, res) {
 
     form.parse(req, (err, fields, files) => {
 
-        const dir = fields.dir[0];
-        if (err || !dir) {
-            res.send({
-                err,
-                success
-            });
-            return;
-        }
         try {
+            const dir = fields.dir[0];
+            if (err || !dir) {
+                res.send({
+                    err,
+                    success
+                });
+                return;
+            }
+
             files.upload.forEach(v => {
                 const pathstr = path.format({
                     dir,
@@ -66,13 +67,19 @@ function uploadFile(req, res) {
                 fs.renameSync(v.path, newPath);
             })
             success = true;
-        } catch (e) {}
+        } catch (e) {
+            success = false;
+        }
 
-        res.send({
-            success,
-            fields,
-            files
-        });
+        if (success) {
+            res.send({
+                success,
+                fields,
+                files
+            });
+        }
+
+
     });
     form.on('error', (err) => {
         res.send({
