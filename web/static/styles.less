@@ -28,7 +28,7 @@ li {
 
 .top {
     height: 82px;
-    z-index: 1;
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
@@ -232,7 +232,7 @@ li {
 .chat {
     display: none;
 
-    table{
+    table {
         width: 100%;
     }
 
@@ -270,6 +270,7 @@ li {
 
         li {
             margin-bottom: 10px;
+
             &:after {
                 clear: both;
                 content: '';
@@ -293,20 +294,94 @@ li {
         color: #218dd6;
     }
 
-    .my {
-        .text-rea{
-            text-align: right;
+    .user-info {
+        vertical-align: top;
+        visibility: hidden;
+        width: 56px;
+        text-align: center;
+
+        i {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-size: 40px;
+            text-align: center;
         }
     }
 
-    .user-info{
-        vertical-align: top;
-        visibility: hidden;
-        width: 60px;
-        &.show-info{
+    .text-rea {
+        position: relative;
+
+    }
+
+    .my {
+        pre {
+            background: #b2e281;
+            margin-right: 0;
+        }
+
+        .text-rea {
+            text-align: right;
+
+            &::after {
+                float: right;
+                position: absolute;
+                top: 10px;
+                z-index: 2;
+                right: -17px;
+                width: 0;
+                height: 0;
+                content: " ";
+                border-right: 10px solid transparent;
+                border-top: 10px solid transparent;
+                border-left: 10px solid #b2e281;
+                border-bottom: 10px solid transparent;
+            }
+        }
+
+        .my-info {
             visibility: visible;
+            text-align: right;
+
+            i {
+                background-image: url('/assets/user.jpg');
+            }
+        }
+
+    }
+
+    .other {
+        .other-info {
+            visibility: visible;
+            text-align: left;
+        }
+
+        .text-rea {
+            position: relative;
+
+            &::before {
+                float: left;
+                position: absolute;
+                top: 10px;
+                z-index: 2;
+                left: -17px;
+                width: 0;
+                height: 0;
+                content: " ";
+                border-right: 10px solid #f8f8f8;
+                border-top: 10px solid transparent;
+                border-left: 10px solid #b6e68500;
+                border-bottom: 10px solid transparent;
+            }
+        }
+
+        i {
+            background: #e6e6e6;
+            border: 1px solid #cecbcb;
         }
     }
+
+
 
 }
 
@@ -319,6 +394,7 @@ li {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 10;
 
     th.select,
     th:hover {

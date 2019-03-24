@@ -110,30 +110,40 @@ $(function () {
         return now.toTimeString().substr(0, 8);
     }
 
+    function mockdata() {
+
+        for (var i = 0; i < 5; i++) {
+            pushMassageList({
+                author: i ? myId : 'FDASFDAFA',
+                text: [
+                    'FDAS  FDSA FSAD \n  FDAS GFDSAF FDSA ',
+                    '<span class="show-time">' + getDate(new Date()) + '</span>'
+                ].join('')
+            })
+        }
+    }
+
+    mockdata();
+
 
     function pushMassageList(data) {
-        var li = $('<li/>');
-        var pre = $('<pre/>');
-        var p = $('<p/>');
+
         var myself = data.author === myId;
+        var typeClass = myself ? 'my' : 'other';
 
-        var time = '<span class="show-time">' + getDate(new Date(data.time)) + '</span>';
+        var pre = $('<pre/>').text(data.text);
 
-        if (myself) {
-            li.addClass('my');
-            p.html(time);
-        } else {
-            li.addClass('other');
-            p.html(time);
-        }
+        // var time = '<span class="show-time">' + getDate(new Date(data.time)) + '</span>';
 
-        li.append(p);
-        pre.text(data.text);
+        var html = [
+            '<li class="', typeClass, '"><table><tr>',
+            '<td class="user-info other-info"><i></i></td>',
+            '<td class="text-rea">', pre.prop('outerHTML'), '</td>',
+            '<td class="user-info my-info"><i></i></td>',
+            '</tr></table></li>'
+        ].join('');
 
-        li.append(pre);
-
-        $('.talk-list').append(li);
-
+        $('.talk-list').append(html);
     }
 
 
