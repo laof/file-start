@@ -3,6 +3,13 @@ body {
     font-family: "Microsoft YaHei", "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", sans-serif;
 }
 
+textarea,
+pre {
+    font-weight: normal;
+    font-size: 14px;
+    font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
 label {
     padding-bottom: 0;
 }
@@ -26,9 +33,24 @@ li {
     list-style: none;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
+
+/** var  */
+
+@talk-symbol: -8px;
+@foot-height: 55px;
+@top-height: 82px;
+@talk-form-height: 160px;
+
+/** top  */
+
+
 .top {
-    height: 82px;
-    z-index: 10;
+    height: @top-height;
+    z-index: 11;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,6 +58,22 @@ li {
     padding: 10px;
     background: #007acc;
     border: 1px solid #007acc;
+
+    .mobile {
+        cursor: pointer;
+        position: absolute;
+        font-size: 30px;
+        top: -10px;
+        padding: 0px 15px;
+        right: 0;
+        color: black;
+        opacity: 0.3;
+
+        &:hover {
+            color: white;
+            opacity: 1;
+        }
+    }
 }
 
 .content {
@@ -230,16 +268,11 @@ li {
 
 /** chat */
 .chat {
+
     display: none;
 
     table {
         width: 100%;
-    }
-
-    .chat-main {
-        margin-bottom: 5px;
-        padding: 5px;
-        background: #ebe9e6;
     }
 
     .uuid {
@@ -248,27 +281,25 @@ li {
         font-size: 30px;
     }
 
-    .am-form {
-        padding: 5px;
-    }
-
-    textarea {
-        height: 150px;
-        resize: none;
-    }
-
     .talk-list {
-        height: 520px;
         overflow: auto;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: @top-height;
+        bottom: @talk-form-height + @foot-height;
+        padding: 3px;
+        background: #ebe9e6;
 
         pre {
             margin: 0 2px;
             border-radius: 6px;
             display: inline-block;
             text-align: left;
+            border: 0;
         }
 
-        li {
+        .take-item {
             margin-bottom: 10px;
 
             &:after {
@@ -312,30 +343,26 @@ li {
     .text-rea {
         position: relative;
 
+        i {
+            position: absolute;
+            top: -10px;
+            font-size: 36px;
+        }
     }
+
+
 
     .my {
         pre {
             background: #b2e281;
-            margin-right: 0;
         }
 
         .text-rea {
             text-align: right;
 
-            &::after {
-                float: right;
-                position: absolute;
-                top: 10px;
-                z-index: 2;
-                right: -17px;
-                width: 0;
-                height: 0;
-                content: " ";
-                border-right: 10px solid transparent;
-                border-top: 10px solid transparent;
-                border-left: 10px solid #b2e281;
-                border-bottom: 10px solid transparent;
+            i {
+                right: @talk-symbol;
+                color: #b2e281;
             }
         }
 
@@ -351,35 +378,74 @@ li {
     }
 
     .other {
+        pre {
+            background: #f8f8f8;
+        }
+
         .other-info {
             visibility: visible;
             text-align: left;
-        }
 
-        .text-rea {
-            position: relative;
-
-            &::before {
-                float: left;
-                position: absolute;
-                top: 10px;
-                z-index: 2;
-                left: -17px;
-                width: 0;
-                height: 0;
-                content: " ";
-                border-right: 10px solid #f8f8f8;
-                border-top: 10px solid transparent;
-                border-left: 10px solid #b6e68500;
-                border-bottom: 10px solid transparent;
+            i {
+                background: #ccc;
+                border: 1px solid #b9b9b9;
             }
         }
 
-        i {
-            background: #e6e6e6;
-            border: 1px solid #cecbcb;
+        .text-rea {
+            i {
+                left: @talk-symbol;
+                color: #f8f8f8;
+            }
+        }
+
+    }
+
+    /** input form */
+
+    .send-form {
+        padding: 0 5px;
+        height: @talk-form-height;
+        position: fixed;
+        bottom: @foot-height;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #dedddd;
+
+        textarea {
+            border: none;
+            outline: none;
+            width: 100%;
+            resize: none;
+            padding: 5px;
+            margin: 5px;
+            height: 116px;
+            border-radius: 3px;
+        }
+
+        .submit-bar {
+            text-align: right;
+            font-size: 12px;
+            vertical-align: middle;
+
+            span {
+                color: #ccc;
+                padding-right: 4px;
+                vertical-align: middle;
+            }
+        }
+
+        .send-message {
+            outline: none;
+            border-radius: 5px;
+
+            &:focus {
+                outline: none;
+            }
+
         }
     }
+
 
 
 
@@ -389,6 +455,7 @@ li {
 /** footer */
 .footer {
 
+    height: @foot-height;
     background: #2d2c2c;
     position: fixed;
     left: 0;

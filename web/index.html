@@ -13,7 +13,9 @@
 
 <body>
 
+  <!-- top -->
   <div class="top">
+    <i class="mobile mobile-button  am-icon-mobile"></i>
 
     <div class="files">
       <div class="path-container">
@@ -50,11 +52,11 @@
     <div class="chat">
       <p class="uuid"></p>
     </div>
-
   </div>
 
   <!-- 内容 -->
   <div class="content">
+    <!-- files -->
     <div class="files">
       <div class="file-container">
         <ul class="file-list">
@@ -72,18 +74,18 @@
       </form>
       <div id="dir-list"></div>
     </div>
+    <!-- chat -->
     <div class="chat chat-content">
-      <div class="chat-main">
-        <ul class="talk-list">
-        </ul>
+      <div class="talk-list"></div>
+      <div class="send-form">
+        <textarea id="input-text" spellcheck="false"></textarea>
+        <div class="submit-bar"><span>按下Ctrl+Enter换行</span> <button type="button"
+            class="am-btn-xs am-btn send-message am-btn-success">send</button></div>
       </div>
-      <form class="am-form">
-        <button type="button" class="am-btn send-message am-btn-secondary">send</button>
-        <textarea id="input-text" spellcheck="false" name="" id="" cols="30" rows="10"></textarea>
-      </form>
     </div>
   </div>
 
+  <!-- footer -->
   <div class="footer">
     <table>
       <tr>
@@ -93,8 +95,7 @@
     </table>
   </div>
 
-  <!-- modal -->
-
+  <!-- message modal -->
   <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
     <div class="am-modal-dialog">
       <div class="am-modal-bd">
@@ -109,6 +110,7 @@
     </div>
   </div>
 
+  <!-- loading -->
   <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
     <div class="am-modal-dialog">
       <div class="am-modal-hd">wait...</div>
@@ -118,9 +120,23 @@
     </div>
   </div>
 
+  <!-- qrcode -->
+  <div class="am-modal am-modal-alert" tabindex="-1" id="my-modal-code">
+    <div class="am-modal-dialog">
+      <div class="am-modal-hd location-host">Amaze UI</div>
+      <div class="am-modal-bd">
+        <div id="j-qrcode"></div>
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn">OK</span>
+      </div>
+    </div>
+  </div>
+
   <script src="./static/less.min.js"></script>
   <script src="./static/socket.io.js"></script>
   <script src="./static/jquery3.3.1.min.js"></script>
+  <script src="./static/jquery.qrcode.min.js"></script>
   <script src="./assets/js/amazeui.min.js"></script>
   <script src="./static/jquery-form.min.js"></script>
   <script src="./static/view-engine.js"></script>

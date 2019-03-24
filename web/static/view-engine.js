@@ -112,7 +112,7 @@ $(function () {
 
     function mockdata() {
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 15; i++) {
             pushMassageList({
                 author: i ? myId : 'FDASFDAFA',
                 text: [
@@ -131,19 +131,29 @@ $(function () {
         var myself = data.author === myId;
         var typeClass = myself ? 'my' : 'other';
 
-        var pre = $('<pre/>').text(data.text);
+        var talk = '';
+        var pre = $('<pre/>').text(data.text).prop('outerHTML');
 
         // var time = '<span class="show-time">' + getDate(new Date(data.time)) + '</span>';
 
+        var icon = '<i class="' + (myself ? 'am-icon-caret-right' : 'am-icon-caret-left') + '"></i>';
+
+        if (myself) {
+            talk = pre + icon;
+        } else {
+            talk = icon + pre;
+        }
+
         var html = [
-            '<li class="', typeClass, '"><table><tr>',
+            '<div class="take-item ', typeClass, '"><table><tr>',
             '<td class="user-info other-info"><i></i></td>',
-            '<td class="text-rea">', pre.prop('outerHTML'), '</td>',
+            '<td class="text-rea">', talk, '</td>',
             '<td class="user-info my-info"><i></i></td>',
-            '</tr></table></li>'
+            '</tr></table></div>'
         ].join('');
 
-        $('.talk-list').append(html);
+        var ele = $('.talk-list').append(html)[0];
+        ele.scrollTop = ele.scrollHeight;
     }
 
 
@@ -163,16 +173,24 @@ $(function () {
 
     function changeTabs(type) {
         var select = 'select';
+        var overHide = 'overflow-hidden'
         $('th').removeClass(select);
         $('th[type=' + type + ']').addClass(select);
+
+        var html = $('html');
+        var files = $('.files');
+        var chat = $('.chat');
+
         switch (type) {
             case 'a':
-                $('.files').show();
-                $('.chat').hide();
+                files.show();
+                chat.hide();
+                html.removeClass(overHide);
                 break;
             case 'b':
-                $('.files').hide();
-                $('.chat').show();
+                files.hide();
+                chat.show();
+                html.addClass(overHide);
                 break;
         }
         localStorage.setItem(storage.tabsKey, type);
@@ -372,6 +390,13 @@ $(function () {
         } else {
             submit.hide();
         }
+    });
+
+    $('.mobile-button').click(function () {
+        var url = location.origin;
+        $('#my-modal-code').modal('open');
+        $('.location-host').html(url);
+        $('#j-qrcode').empty().qrcode(url);
     });
 
     $('.nav-bar .am-btn').click(function () {

@@ -1,6 +1,5 @@
 http://nodejs.cn/api/
 
-http://www.amazeui.org/getting-started?_ver=2.x
 
 http://www.expressjs.com.cn/4x/api.html
 
