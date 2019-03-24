@@ -37,6 +37,10 @@ li {
     overflow: hidden;
 }
 
+.qrcode-display{
+    overflow: hidden;
+}
+
 
 /** var  */
 
@@ -485,6 +489,25 @@ li {
                 color: #ccc;
                 padding-right: 4px;
                 vertical-align: middle;
+            }
+
+            .tips {
+                visibility: hidden;
+                padding-top: 5px;
+                display: inline-block;
+                height: 24px;
+
+                &.tips-visibility {
+                    visibility: visible;
+                }
+            }
+
+            .bar-left {
+                text-align: left;
+            }
+
+            .bar-right {
+                text-align: right;
             }
         }
 

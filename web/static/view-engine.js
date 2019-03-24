@@ -432,13 +432,21 @@ $(function () {
     // 生成二维码
     $('.barcode').click(function () {
         var text = getInputMssage(false);
+        var visibility = 'tips-visibility';
+        var tips = $('.submit-bar .tips');
         var maxStr = 500;
         if (text) {
             var t = text;
             if (text.length > maxStr) {
                 t = text.substring(0, maxStr) + '...';
             }
+            tips.removeClass(visibility);
             codeModal(t);
+        } else {
+            tips.addClass(visibility);
+            setTimeout(function () {
+                tips.removeClass(visibility);
+            }, 3000)
         }
     });
 
