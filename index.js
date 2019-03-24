@@ -7,12 +7,11 @@ const socket = require('./app/socket');
 
 const {
     sharedPath,
+    host,
     port
 } = require('./app/config');
 
-const {
-    IPAdress
-} = require('./app/address');
+
 const app = express();
 
 const http = require('http').Server(app);
@@ -27,5 +26,5 @@ app.use(express.static(web));
 app.use(express.static(sharedPath));
 
 http.listen(port, () => {
-    console.log(`\n  http://localhost:${port}   \n  http://${IPAdress}:${port}`);
+    console.log(`\n  http://localhost:${port}   \n` + host);
 });

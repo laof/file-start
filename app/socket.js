@@ -1,7 +1,8 @@
 var onlineUserCount = 0; //客户端连接数量
 var onlineUsers = {}; //统计客户端登录用户
+var talkList = [];
 
-function getTime () {
+function getTime() {
     return new Date().getTime();
 }
 
@@ -54,8 +55,13 @@ function boot(io) {
                 socket.emit('chat message', obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
                 socket.broadcast.emit('chat message', obj); //向其他用户发送消息
 
+                talkList.push(obj);
+
             }
+
             //io.emit('chat message',msg);
+
+
         });
 
         socket.on('disconnect', function () {
@@ -81,7 +87,12 @@ function boot(io) {
     });
 }
 
+function getTalkHistory() {
+    return talkList;
+}
+
 
 module.exports = {
-    boot
+    boot,
+    getTalkHistory
 }

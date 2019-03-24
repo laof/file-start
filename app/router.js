@@ -3,6 +3,14 @@ const path = require('path');
 const multiparty = require('multiparty');
 const dirTree = require('directory-tree');
 
+const {
+    host
+} = require('./config');
+
+const {
+    getTalkHistory
+} = require('./socket');
+
 
 const {
     sharedPath
@@ -87,6 +95,7 @@ function list(req, res) {
     if (map.path) {
         success = true;
     }
+    map.serverHost = host;
     map.success = success;
     res.send(map);
 }
@@ -95,6 +104,12 @@ function list(req, res) {
 function boot(app) {
     app.post('/list', list);
     app.post('/upload', uploadFile);
+    app.post('/talk_history', (req, res) => {
+        res.send({
+            list: getTalkHistory(),
+            success: true
+        });
+    });
 }
 module.exports = {
     boot

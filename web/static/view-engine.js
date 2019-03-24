@@ -2,6 +2,7 @@ $(function () {
 
     var global = window;
     var fileMap = {};
+    var serverHost = location.origin;
 
     if (!global.localStorage || !global.WebSocket) {
         $('body').html('<h1 class="garbage">The version is too low. Please update the version.<h1>');
@@ -58,6 +59,7 @@ $(function () {
 
     var AjaxUrl = {
         list: '/list',
+        talkHistory: 'talk_history',
         upload: '/upload'
     }
 
@@ -110,23 +112,25 @@ $(function () {
         return now.toTimeString().substr(0, 8);
     }
 
-    function mockdata() {
+    // function mockdata() {
 
-        for (var i = 0; i < 15; i++) {
-            pushMassageList({
-                author: i ? myId : 'FDASFDAFA',
-                text: [
-                    'FDAS  FDSA FSAD \n  FDAS GFDSAF FDSA ',
-                    '<span class="show-time">' + getDate(new Date()) + '</span>'
-                ].join('')
-            })
-        }
-    }
+    //     for (var i = 0; i < 15; i++) {
+    //         pushMassageList({
+    //             author: i ? myId : 'FDASFDAFA',
+    //             text: [
+    //                 'FDAS  FDSA FSAD \n  FDAS GFDSAF FDSA ',
+    //                 '<span class="show-time">' + getDate(new Date()) + '</span>'
+    //             ].join('')
+    //         })
+    //     }
+    // }
 
-    mockdata();
+    // mockdata();
 
 
-    function pushMassageList(data) {
+
+
+    function getTalkTemp(data) {
 
         var myself = data.author === myId;
         var typeClass = myself ? 'my' : 'other';
@@ -152,10 +156,13 @@ $(function () {
             '</tr></table></div>'
         ].join('');
 
+        return html;
+    }
+
+    function talkMessage(html) {
         var ele = $('.talk-list').append(html)[0];
         ele.scrollTop = ele.scrollHeight;
     }
-
 
     $('.uuid,.chat-tabs').html(myId);
 
@@ -167,9 +174,14 @@ $(function () {
         // console.log(data);
     });
     socket.on('chat message', function (data) {
-        pushMassageList(data);
+        var html = getTalkTemp(data);
+        talkMessage(html);
     });
     socket.on('disconnect', function () {});
+
+
+
+
 
     function changeTabs(type) {
         var select = 'select';
@@ -205,11 +217,21 @@ $(function () {
     })
 
 
-    function sentMessage() {
+    function getInputMssage(clear) {
         var element = $('#input-text');
         var text = element.val();
-        element.val('').html('').focus().val('');
-        if ($.trim(text) !== '') {
+        // 清空
+        if (clear) {
+            element.val('').html('').focus().val('');
+        }
+        return $.trim(text);
+    }
+
+
+    function sentMessage() {
+        var text = getInputMssage(true);
+
+        if (text) {
             socket.emit('chat message', text);
         }
     }
@@ -392,11 +414,32 @@ $(function () {
         }
     });
 
-    $('.mobile-button').click(function () {
-        var url = location.origin;
+
+    function codeModal(str) {
         $('#my-modal-code').modal('open');
-        $('.location-host').html(url);
-        $('#j-qrcode').empty().qrcode(url);
+        $('.location-host').html(str);
+        $('#j-qrcode').empty().qrcode({
+            width: 400,
+            height: 400,
+            text: str
+        });
+    }
+
+    $('.mobile-button').click(function () {
+        codeModal(serverHost);
+    });
+
+    // 生成二维码
+    $('.barcode').click(function () {
+        var text = getInputMssage(false);
+        var maxStr = 500;
+        if (text) {
+            var t = text;
+            if (text.length > maxStr) {
+                t = text.substring(0, maxStr) + '...';
+            }
+            codeModal(t);
+        }
     });
 
     $('.nav-bar .am-btn').click(function () {
@@ -410,7 +453,8 @@ $(function () {
                 break;
                 /**update */
             case 2:
-                location.reload();
+                // location.reload();
+                loadFileSrc();
                 break;
                 /**back */
             case 3:
@@ -490,15 +534,23 @@ $(function () {
             if (data.success) {
                 return;
             }
-            let mes = '';
+            var mes = '';
             var url = request.url;
-            // list
-            if (url === AjaxUrl.list) {
-                mes = '读取文件失败';
-                // upload
-            } else {
-                mes = '文件路径错误';
+
+            switch (url) {
+                case AjaxUrl.list:
+                    mes = '读取文件失败';
+                    break;
+                case AjaxUrl.upload:
+                    mes = '文件路径错误';
+                    break;
+                case AjaxUrl.talkHistory:
+                    mes = '获取历史记录失败';
+                    break;
+                default:
+                    mes = '未知错误';
             }
+
             if (mes) {
                 message.show(mes);
             }
@@ -508,16 +560,38 @@ $(function () {
         }
     })
 
-    $.post({
-        url: AjaxUrl.list,
-        success: function (data) {
-            if (data && data.success) {
-                var home = data.path;
-                var path = storage.getPath() || home;
-                memory.homePath = home;
-                setMap(data);
-                update(path);
+    $('.history-btn').on('click', function () {
+        $.post({
+            url: AjaxUrl.talkHistory,
+            success: function (data) {
+                $('.show-history').remove();
+                if (data && data.success) {
+                    var html = [];
+                    for (var i = 0; i < data.list.length; i++) {
+                        var item = data.list[i];
+                        html.push(getTalkTemp(item));
+                    }
+                    talkMessage(html.join(''));
+                }
             }
-        }
-    })
+        })
+    });
+
+    function loadFileSrc() {
+        $.post({
+            url: AjaxUrl.list,
+            success: function (data) {
+                if (data && data.success) {
+                    serverHost = data.serverHost;
+                    var home = data.path;
+                    var path = storage.getPath() || home;
+                    memory.homePath = home;
+                    setMap(data);
+                    update(path);
+                }
+            }
+        })
+    }
+
+    loadFileSrc();
 });

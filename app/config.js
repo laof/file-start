@@ -4,6 +4,11 @@ const sharedPath = path.join(process.cwd());
 const MaxPort = 65535;
 const MinPort = 20;
 let port = 5200;
+
+const {
+    IPAdress
+} = require('./address');
+
 /**
  * 2019/02/19 j-z
  */
@@ -22,6 +27,8 @@ if (argv.length <= 3) {
 
 
 module.exports = {
+    host: 'http://' + IPAdress + ':' + port,
     port,
+    IP: IPAdress,
     sharedPath
 }
