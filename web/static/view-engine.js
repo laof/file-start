@@ -367,6 +367,7 @@ $(function () {
             return update(memory.homePath);
         }
         $('#dir-list').html(dom);
+        changeTabs(currentTabs);
     }
 
 
