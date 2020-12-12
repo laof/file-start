@@ -98,12 +98,12 @@ function list(req, res) {
 }
 
 function boot(app) {
-  app.post("/api/host", (req, res) => {
+  app.post("/host", (req, res) => {
     res.send({ host: host });
   });
-  app.post("/api/list", list);
-  app.post("/api/upload", uploadFile);
-  app.post("/api/talk_history", (req, res) => {
+  app.post("/list", list);
+  app.post("/upload", uploadFile);
+  app.post("/talk_history", (req, res) => {
     res.send({
       list: getTalkHistory(),
       success: true,
