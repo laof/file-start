@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const homPage = '/ui.html';
 const sharedPath = path.join(process.cwd());
 const MaxPort = 65535;
 const MinPort = 20;
@@ -27,7 +28,8 @@ if (argv.length <= 3) {
 
 
 module.exports = {
-    host: 'http://' + IPAdress + ':' + port,
+    homPage: homPage,
+    host: 'http://' + IPAdress + ':' + port + homPage,
     port,
     IP: IPAdress,
     sharedPath
