@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const multiparty = require("multiparty");
 const dirTree = require("directory-tree");
+const express = require("express");
+const router = express.Router();
 
 const { host } = require("./config");
 
@@ -92,24 +94,33 @@ function list(req, res) {
   if (map.path) {
     success = true;
   }
-  // map.serverHost = host;
   map.success = success;
   res.send(map);
 }
 
-function boot(app) {
-  app.post("/host", (req, res) => {
-    res.send({ host: host });
+router.post("/download", function (req, res, next) {
+  const obj = req.query;
+  try {
+    res.download(obj.file, obj.fileName);
+  } catch (e) {
+    res.stats(400).send("download error");
+  }
+});
+
+router.post("/host", (req, res) => {
+  res.send({ host: host });
+});
+
+router.post("/list", list);
+
+router.post("/upload", uploadFile);
+
+router.post("/talk_history", (req, res) => {
+  res.send({
+    list: getTalkHistory(),
+    success: true,
   });
-  app.post("/list", list);
-  app.post("/upload", uploadFile);
-  app.post("/talk_history", (req, res) => {
-    res.send({
-      list: getTalkHistory(),
-      success: true,
-    });
-  });
-}
-module.exports = {
-  boot,
-};
+});
+
+// -----
+module.exports = router;
