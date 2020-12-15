@@ -1,7 +1,8 @@
 const path = require('path');
 
-module.exports = {
+var config = {
   target: 'node',
+  mode: 'production',
   externals: _externals(),
   entry: './main.js',
   output: {
@@ -22,3 +23,5 @@ function _externals() {
   }
   return externals;
 }
+
+module.exports = config;

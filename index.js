@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -412,7 +413,6 @@ module.exports = require("socket.io");;
 /************************************************************************/
 (() => {
 // #!/usr/bin/env node
-
 const express = __webpack_require__(127);
 const path = __webpack_require__(622);
 const { socket } = __webpack_require__(798);
