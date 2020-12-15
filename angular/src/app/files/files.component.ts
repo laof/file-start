@@ -31,7 +31,7 @@ interface FileItem {
 export class FilesComponent implements OnInit {
   private root = '';
   private fileMap: any = {};
-  private oldBalance = 0;
+  private oldReceive = 0;
   allDone = false;
   uplodInfo = '';
   speedInfo = '';
@@ -190,7 +190,7 @@ export class FilesComponent implements OnInit {
 
   uploadChange() {
     let total = 0;
-    let balance = 0;
+    let receive = 0;
     let done = 0;
 
     this.uplodInfo = '';
@@ -202,7 +202,7 @@ export class FilesComponent implements OnInit {
       }
       if (item.percent && item.size) {
         total += item.size || 0;
-        balance += item.size * item.percent * 0.01;
+        receive += item.size * item.percent * 0.01;
       }
     });
 
@@ -211,21 +211,20 @@ export class FilesComponent implements OnInit {
     if (this.fileList.length) {
       const s = this.fileList.length;
       const t = this.toSize(total, true);
-      const b = this.toSize(balance, true);
+      const r = this.toSize(receive, true);
 
       // ---speed
-      const size = balance - this.oldBalance;
-      let speed = '--';
+      const size = receive - this.oldReceive;
+      let speed = '';
       if (size > 0) {
         speed = `${this.toSize(size, true)}/s`;
       }
       //  speed---
 
+      this.speedInfo = `${speed} ${done}/${s}`;
+      this.uplodInfo = this.allDone ? `Total: ${s} (${t})` : `${r}/${t}`;
 
-      this.speedInfo = `${speed} ${done}/${s}`
-      this.uplodInfo = this.allDone ? `Total: ${s} (${t})` : `${b}/${t}`;
-
-      this.oldBalance = balance;
+      this.oldReceive = receive;
     }
   }
 
@@ -248,5 +247,5 @@ export class FilesComponent implements OnInit {
   // }
   // }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

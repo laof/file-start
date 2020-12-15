@@ -7,19 +7,20 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'files',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'files',
-    component: FilesComponent
-  }, {
+    component: FilesComponent,
+  },
+  {
     path: 'chat',
-    component: ChatComponent
-  }
+    component: ChatComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
