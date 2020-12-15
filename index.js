@@ -2,8 +2,8 @@
 
 const express = require("express");
 const path = require("path");
-const { socket } = require("./app/socket");
-const { sharedPath, hostUrl, port, homPage } = require("./app/config");
+const { socket } = require("./src/socket");
+const { sharedPath, hostUrl, port, homPage } = require("./src/config");
 const app = express();
 const http = require("http").Server(app);
 // const token = 'a'+(new Date().getTime().toString())
@@ -24,7 +24,7 @@ const web = path.join(__dirname, "web");
 
 socket.listen(http);
 
-app.use("/api", require("./app/router"));
+app.use("/api", require("./src/router"));
 
 app.use(express.static(web));
 app.use(express.static(sharedPath));

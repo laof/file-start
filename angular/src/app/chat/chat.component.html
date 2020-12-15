@@ -1,0 +1,31 @@
+<div class="view message-list" #listRef>
+  <table>
+    <ng-container *ngFor="let item of list; let i = index">
+      <tr [class.myself]="item.author === myId">
+        <td>
+          <pre class="mes">{{ item.text }}</pre>
+          <!-- <span class="mes">{{ item.text }}</span> -->
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>
+
+<div class="view send-message">
+  <button (click)="send()" nz-button>
+    <i nz-icon nzType="send" nzTheme="outline"></i>Send
+  </button>
+  <button (click)="clear()" nz-button>
+    <i nz-icon nzType="clear" nzTheme="outline"></i>Clear
+  </button>
+  <br />
+  <form>
+    <textarea
+      name="txt"
+      placeholder="input text"
+      [(ngModel)]="text"
+      (keydown.enter)="send()"
+      spellcheck="false"
+    ></textarea>
+  </form>
+</div>

@@ -1,0 +1,27 @@
+<ul nz-menu nzMode="horizontal" nzTheme="dark">
+  <i nz-icon (click)="scan()" class="scan" nzType="scan" nzTheme="outline"></i>
+
+  <li nz-menu-item nzMatchRouter>
+    <i nz-icon nzType="share-alt" nzTheme="outline"></i>
+    <a routerLink="files">File Sharing</a>
+  </li>
+  <li nz-menu-item nzMatchRouter>
+    <i nz-icon nzType="wechat" nzTheme="outline"></i>
+    <a routerLink="chat">Text Chat</a>
+  </li>
+</ul>
+
+<nz-modal
+  [(nzVisible)]="visible"
+  (nzOnCancel)="cancel()"
+  (nzOnOk)="cancel()"
+  [nzTitle]="host"
+>
+  <ng-container *nzModalContent>
+    <img [attr.src]="hostDataUrl" alt="" />
+  </ng-container>
+</nz-modal>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
