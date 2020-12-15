@@ -1,15 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const multiparty = require("multiparty");
-const dirTree = require("directory-tree");
-const express = require("express");
-const router = express.Router();
-
-const { host } = require("./config");
-
-const { getTalkHistory } = require("./socket");
-
-const { sharedPath } = require("./config");
+const { sharedPath } = require("../../config");
 
 function getNewPate(pathstr, fileName) {
   let exists = true;
@@ -29,7 +21,7 @@ function getNewPate(pathstr, fileName) {
   return pathstr;
 }
 
-function uploadFile(req, res) {
+function upload(req, res) {
   let success = false;
 
   const opts = {
@@ -69,6 +61,7 @@ function uploadFile(req, res) {
       });
     }
   });
+
   form.on("error", (err) => {
     res.send({
       err,
@@ -77,50 +70,4 @@ function uploadFile(req, res) {
   });
 }
 
-const replacePath = sharedPath.split(path.sep).join("/");
-
-function list(req, res) {
-  let success = false;
-  const map = dirTree(
-    sharedPath,
-    {
-      /** split flag: '\' */
-      normalizePath: true,
-    },
-    (item, PATH, stats) => {
-      item.download = item.path.replace(replacePath, "");
-    }
-  );
-  if (map.path) {
-    success = true;
-  }
-  map.success = success;
-  res.send(map);
-}
-
-router.post("/download", function (req, res, next) {
-  const obj = req.query;
-  try {
-    res.download(obj.file, obj.fileName);
-  } catch (e) {
-    res.stats(400).send("download error");
-  }
-});
-
-router.post("/host", (req, res) => {
-  res.send({ host: host });
-});
-
-router.post("/list", list);
-
-router.post("/upload", uploadFile);
-
-router.post("/talk_history", (req, res) => {
-  res.send({
-    list: getTalkHistory(),
-    success: true,
-  });
-});
-
-// -----
-module.exports = router;
+module.exports = upload;

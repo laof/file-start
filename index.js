@@ -2,11 +2,10 @@
 
 const express = require("express");
 const path = require("path");
-const socket = require("./app/socket");
-
-const { sharedPath, host, port, homPage } = require("./app/config");
-
+const { socket } = require("./app/socket");
+const { sharedPath, hostUrl, port, homPage } = require("./config");
 const app = express();
+const http = require("http").Server(app);
 // const token = 'a'+(new Date().getTime().toString())
 // app.all("*", (req, res, next) => {
 //   const m = req.method.toLocaleLowerCase();
@@ -18,22 +17,18 @@ const app = express();
 //     res.header("Access-Control-Allow-Headers", "*");
 //     res.header("Content-Type", "application/json;charset=utf-8");
 //   }
-
 //   next();
 // });
 
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const web = path.join(__dirname, "web");
 
-const dirname = __dirname;
-const web = path.join(dirname, "web");
+socket.listen(http);
 
 app.use("/api", require("./app/router"));
-socket.boot(io);
 
 app.use(express.static(web));
 app.use(express.static(sharedPath));
 
 http.listen(port, () => {
-  console.log(`http://localhost:${port}${homPage}   \n` + host);
+  console.log(`http://localhost:${port}${homPage}   \n` + hostUrl);
 });
