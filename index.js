@@ -3,7 +3,7 @@
 const express = require("express");
 const path = require("path");
 const { socket } = require("./app/socket");
-const { sharedPath, hostUrl, port, homPage } = require("./config");
+const { sharedPath, hostUrl, port, homPage } = require("./app/config");
 const app = express();
 const http = require("http").Server(app);
 // const token = 'a'+(new Date().getTime().toString())

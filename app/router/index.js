@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { hostUrl } = require("../../config");
+const { hostUrl } = require("../config");
 const { getSocketHistory } = require("../socket");
 const dirList = require("./dir-list");
 const upload = require("./upload");

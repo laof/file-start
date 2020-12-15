@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const multiparty = require("multiparty");
-const { sharedPath } = require("../../config");
+const { sharedPath } = require("../config");
 
 function getNewPate(pathstr, fileName) {
   let exists = true;
