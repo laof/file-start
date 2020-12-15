@@ -1,11 +1,11 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 
-const express = require("express");
-const path = require("path");
-const { socket } = require("./src/socket");
-const { sharedPath, hostUrl, port, homPage } = require("./src/config");
+const express = require('express');
+const path = require('path');
+const { socket } = require('./src/socket');
+const { sharedPath, hostUrl, port, homPage } = require('./src/config');
 const app = express();
-const http = require("http").Server(app);
+const http = require('http').Server(app);
 // const token = 'a'+(new Date().getTime().toString())
 // app.all("*", (req, res, next) => {
 //   const m = req.method.toLocaleLowerCase();
@@ -20,11 +20,11 @@ const http = require("http").Server(app);
 //   next();
 // });
 
-const web = path.join(__dirname, "web");
+const web = path.join(__dirname, 'web');
 
 socket.listen(http);
 
-app.use("/api", require("./src/router"));
+app.use('/api', require('./src/router'));
 
 app.use(express.static(web));
 app.use(express.static(sharedPath));

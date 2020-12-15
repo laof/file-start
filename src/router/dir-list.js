@@ -1,7 +1,7 @@
-const dirTree = require("directory-tree");
-const path = require("path");
-const { sharedPath } = require("../config");
-const replacePath = sharedPath.split(path.sep).join("/");
+const dirTree = require('directory-tree');
+const path = require('path');
+const { sharedPath } = require('../config');
+const replacePath = sharedPath.split(path.sep).join('/');
 
 function list(req, res) {
   let success = false;
@@ -12,7 +12,7 @@ function list(req, res) {
       normalizePath: true,
     },
     (item, PATH, stats) => {
-      item.download = item.path.replace(replacePath, "");
+      item.download = item.path.replace(replacePath, '');
     }
   );
   if (map.path) {

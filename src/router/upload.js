@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
-const multiparty = require("multiparty");
-const { sharedPath } = require("../config");
+const fs = require('fs');
+const path = require('path');
+const multiparty = require('multiparty');
+const { sharedPath } = require('../config');
 
 function getNewPate(pathstr, fileName) {
   let exists = true;
@@ -62,7 +62,7 @@ function upload(req, res) {
     }
   });
 
-  form.on("error", (err) => {
+  form.on('error', (err) => {
     res.send({
       err,
       success,

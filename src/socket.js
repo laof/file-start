@@ -7,7 +7,7 @@ function getTime() {
 }
 
 function callback(socket) {
-  socket.emit("open"); //通知客户端已连接
+  socket.emit('open'); //通知客户端已连接
 
   //构造客户端对象
   var client = {
@@ -17,7 +17,7 @@ function callback(socket) {
 
   //监听客户端的chat message事件， 该事件由客户端触发
   //当服务端收到消息后，再把该消息播放出去，继续触发chat message事件， 然后在客户端监听chat message事件。
-  socket.on("chat message", function (msg) {
+  socket.on('chat message', function (msg) {
     var obj = {
       time: getTime(),
     }; //构建客户端返回的对象
@@ -27,30 +27,30 @@ function callback(socket) {
       onlineUserCount++;
 
       client.name = msg;
-      obj["text"] = client.name;
-      obj["author"] = "Sys";
-      obj["type"] = "welcome";
-      obj["onlineUserCount"] = onlineUserCount;
+      obj['text'] = client.name;
+      obj['author'] = 'Sys';
+      obj['type'] = 'welcome';
+      obj['onlineUserCount'] = onlineUserCount;
       socket.name = client.name; //用户登录后设置socket.name， 当退出时用该标识删除该在线用户
       if (!onlineUsers.hasOwnProperty(client.name)) {
         onlineUsers[client.name] = client.name;
       }
-      obj["onlineUsers"] = onlineUsers; //当前在线用户集合
+      obj['onlineUsers'] = onlineUsers; //当前在线用户集合
       // console.log(client.name + ' login,当前在线人数:' + onlineUserCount);
 
       //返回欢迎语
-      socket.emit("system", obj); //发送给自己的消息
+      socket.emit('system', obj); //发送给自己的消息
       //广播新用户已登录
-      socket.broadcast.emit("system", obj); //向其他用户发送消息
+      socket.broadcast.emit('system', obj); //向其他用户发送消息
     } else {
       //如果不是第一次聊天，则返回正常的聊天消息
-      obj["text"] = msg;
-      obj["author"] = client.name;
-      obj["type"] = "message";
+      obj['text'] = msg;
+      obj['author'] = client.name;
+      obj['type'] = 'message';
       // console.log(client.name + ' say:' + msg);
 
-      socket.emit("chat message", obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
-      socket.broadcast.emit("chat message", obj); //向其他用户发送消息
+      socket.emit('chat message', obj); //发送给自己的消息 ， 如果不想打印自己发送的消息，则注释掉该句。
+      socket.broadcast.emit('chat message', obj); //向其他用户发送消息
 
       talkList.push(obj);
     }
@@ -58,7 +58,7 @@ function callback(socket) {
     //io.emit('chat message',msg);
   });
 
-  socket.on("disconnect", function () {
+  socket.on('disconnect', function () {
     onlineUserCount--;
 
     if (onlineUsers.hasOwnProperty(socket.name)) {
@@ -67,22 +67,22 @@ function callback(socket) {
 
     var obj = {
       time: getTime(),
-      author: "Sys",
+      author: 'Sys',
       text: client.name,
-      type: "disconnect",
+      type: 'disconnect',
       onlineUserCount: onlineUserCount,
       onlineUsers: onlineUsers,
     };
 
     //广播用户退出
-    socket.broadcast.emit("system", obj); //用户登录和退出都使用system事件播报
+    socket.broadcast.emit('system', obj); //用户登录和退出都使用system事件播报
     // console.log(client.name + ' disconnect,当前在线人数:' + onlineUserCount);
   });
 }
 
 function listen(server) {
-  const io = require("socket.io")(server);
-  io.on("connection", (socket) => callback(socket));
+  const io = require('socket.io')(server);
+  io.on('connection', (socket) => callback(socket));
 }
 
 function getSocketHistory() {
