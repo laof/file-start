@@ -3,10 +3,10 @@ const path = require('path');
 module.exports = {
   target: 'node',
   externals: _externals(),
-  entry: './index.js',
+  entry: './main.js',
   output: {
     path: __dirname,
-    filename: 'main.js',
+    filename: 'index.js',
   },
   optimization: {
     minimize: false,
