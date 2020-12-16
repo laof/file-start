@@ -1,4 +1,4 @@
-const path = require('path');
+const webpack = require('webpack');
 
 var config = {
   target: 'node',
@@ -12,6 +12,13 @@ var config = {
   optimization: {
     minimize: false,
   },
+  plugins: [
+    new webpack.BannerPlugin({
+      entryOnly: true,
+      banner: '#!/usr/bin/env node',
+      raw: true,
+    }),
+  ],
 };
 
 function _externals() {
