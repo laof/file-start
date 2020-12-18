@@ -62,13 +62,15 @@ const { hostUrl } = __webpack_require__(182);
 const { getSocketHistory } = __webpack_require__(798);
 const dirList = __webpack_require__(295);
 const upload = __webpack_require__(117);
+const exec = __webpack_require__(129).exec;
+const platform = __webpack_require__(87).platform();
 
 router.post('/list', dirList);
 
 router.post('/upload', upload);
 
 router.post('/host', (req, res) => {
-  res.send({ host: hostUrl });
+  res.send({ host: hostUrl, shutdown: platform === 'win32' });
 });
 
 router.post('/download', (req, res, next) => {
@@ -85,6 +87,12 @@ router.post('/talk_history', (req, res) => {
     list: getSocketHistory(),
     success: true,
   });
+});
+
+router.post('/shutdown', (req, res) => {
+  setTimeout(() => exec('shutdown -s'), 0);
+
+  res.send({});
 });
 
 module.exports = router;
@@ -318,6 +326,14 @@ if (argv.length <= 3) {
 
 module.exports = port;
 
+
+/***/ }),
+
+/***/ 129:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");;
 
 /***/ }),
 

@@ -1,12 +1,13 @@
 {
   "name": "shared-files",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Simple File Sharing Service in LAN",
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
     "build-node": "node scripts/build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-ng": "cd angular && npm run build",
+    "start-ng": "cd angular && npm run start"
   },
   "bin": {
     "shared": "./index.js"
