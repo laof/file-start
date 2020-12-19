@@ -20,6 +20,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { antDesignIcons } from './icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
@@ -27,6 +28,7 @@ registerLocaleData(en);
 
 const LoadNzModuel = [
   NzMenuModule,
+  NzDrawerModule,
   NzMessageModule,
   NzModalModule,
   NzUploadModule,

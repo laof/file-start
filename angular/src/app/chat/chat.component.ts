@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
 import * as io from 'socket.io-client';
-import { CommonStorageService } from '../shared/service/storage.service';
+import { SocketIDService } from '../shared/service/storage.service';
 
 interface Message {
   author: string;
@@ -26,14 +26,14 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private socket: any = null;
 
-  constructor(private http: HttpClient, private storage: CommonStorageService) {
+  constructor(private http: HttpClient, private storage: SocketIDService) {
 
-    const id = this.storage.getMyId();
+    const id = this.storage.getItem();
     if (!id) {
-      this.storage.setMyId(new Date().getTime().toString())
+      this.storage.setItem(new Date().getTime().toString())
     }
 
-    this.myId = this.storage.getMyId();
+    this.myId = this.storage.getItem();
 
     // this.list.push({
     //   author: this.myId,

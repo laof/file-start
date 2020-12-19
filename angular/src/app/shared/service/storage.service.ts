@@ -1,64 +1,78 @@
 import { Injectable } from "@angular/core";
-
-class BaseStorage {
-    stor = window.localStorage
-    idKey = 'user_id_1550299839288'
-    pathKey = 'file_path_1550299839288'
-    viewKey = 'view_mode_1550299839288'
-    styleKey = 'style_1550299839288'
-
-    setBase(key: string, value: any) {
-        var stor = this.stor
-        if (stor) {
-            stor.setItem(key, value)
-        }
-        return '';
-    }
-
-    getBase(key: string) {
-        return this.stor.getItem(key) || ''
-    }
-
-}
+import { Interface } from "readline";
+import { LocalStorage } from "./class.storage";
 
 
 @Injectable({ providedIn: 'root' })
-export class CommonStorageService extends BaseStorage {
+export class PathService extends LocalStorage {
+    constructor() {
+        super('path')
+    }
+}
 
-    getPath() {
-        return this.getBase(this.pathKey);
+@Injectable({ providedIn: 'root' })
+export class SocketIDService extends LocalStorage {
+    constructor() {
+        super('socket-id')
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class ViewModeService extends LocalStorage {
+    constructor() {
+        super('view-mode')
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class GridLayoutService extends LocalStorage {
+    constructor() {
+        super('grid-layout')
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class LastViewService extends LocalStorage {
+    constructor() {
+        super('last-view')
+    }
+}
+
+
+export interface ViewHistory {
+    date: string;
+    time: string;
+    fileName: string;
+    path: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class ViewHistoryService extends LocalStorage {
+    private max = 20;
+    constructor() {
+        super('view-history')
     }
 
-    getView() {
-        return this.getBase(this.viewKey);
+    setList(item: ViewHistory) {
+        const list = this.getList();
+        list.push(item);
+        if (list.length > this.max) {
+            list.pop();
+        }
+        this.setItem(JSON.stringify(list));
     }
 
+    getList(): ViewHistory[] {
 
-    getMyId() {
-        return this.getBase(this.idKey);
+        try {
+            const his = this.getItem()
+            return his ? JSON.parse(his).reverse() : [];
+        } catch (e) {
+            return [];
+        }
+
     }
-
-    getStyle() {
-        return this.getBase(this.styleKey);
-    }
-
-
-    setPath(path: string) {
-        this.setBase(this.pathKey, path);
-    }
-
-    setView(value: boolean) {
-        this.setBase(this.viewKey, value ? 'yes' : '');
-    }
-
-    setStyle(value: boolean) {
-        this.setBase(this.styleKey, value ? 'yes' : '');
-    }
-
-    setMyId(value: string) {
-        this.setBase(this.idKey, value);
-    }
-
-
 
 }
+
+

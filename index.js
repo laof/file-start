@@ -6,14 +6,14 @@
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const path = __webpack_require__(622);
-const homPage = '/ui.html';
+const homePage = '/ui.html';
 const sharedPath = path.join(process.cwd());
 const IP = __webpack_require__(499);
 const port = __webpack_require__(475);
 
 module.exports = {
-  homPage: homPage,
-  hostUrl: `http://${IP}:${port}${homPage}`,
+  homePage: homePage,
+  hostUrl: `http://${IP}:${port}${homePage}`,
   port,
   IP,
   sharedPath,
@@ -431,7 +431,7 @@ module.exports = require("socket.io");;
 const express = __webpack_require__(127);
 const path = __webpack_require__(622);
 const { socket } = __webpack_require__(798);
-const { sharedPath, hostUrl, port, homPage } = __webpack_require__(182);
+const { sharedPath, hostUrl, port, homePage } = __webpack_require__(182);
 const app = express();
 const http = __webpack_require__(605).Server(app);
 // const token = 'a'+(new Date().getTime().toString())
@@ -458,7 +458,7 @@ app.use(express.static(web));
 app.use(express.static(sharedPath));
 
 http.listen(port, () => {
-  console.log(`http://localhost:${port}${homPage}   \n` + hostUrl);
+  console.log(`http://localhost:${port}${homePage}   \n` + hostUrl);
 });
 
 })();

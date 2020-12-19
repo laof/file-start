@@ -17,6 +17,9 @@ import {
   DownloadOutline,
   PoweroffOutline,
   PictureTwoTone,
+  FundViewOutline,
+  UnorderedListOutline,
+  EnvironmentOutline
 } from '@ant-design/icons-angular/icons';
 
 export const antDesignIcons = [
@@ -38,4 +41,7 @@ export const antDesignIcons = [
   DownloadOutline,
   PoweroffOutline,
   PictureTwoTone,
+  FundViewOutline,
+  UnorderedListOutline,
+  EnvironmentOutline
 ];

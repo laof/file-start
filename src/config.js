@@ -1,12 +1,12 @@
 const path = require('path');
-const homPage = '/ui.html';
+const homePage = '/ui.html';
 const sharedPath = path.join(process.cwd());
 const IP = require('./tools/address');
 const port = require('./tools/port');
 
 module.exports = {
-  homPage: homPage,
-  hostUrl: `http://${IP}:${port}${homPage}`,
+  homePage: homePage,
+  hostUrl: `http://${IP}:${port}${homePage}`,
   port,
   IP,
   sharedPath,

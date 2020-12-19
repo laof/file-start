@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
-import { CommonStorageService } from '../shared/service/storage.service';
+import { GridLayoutService, LastViewService, PathService, ViewHistory, ViewHistoryService, ViewModeService, } from '../shared/service/storage.service';
 import { saveAs } from 'file-saver';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 
 enum FileType {
   directory = 'directory',
@@ -32,14 +33,19 @@ export class FilesComponent implements OnInit {
   private root = '';
   private fileMap: any = {};
   private oldReceive = 0;
+
+  lastViewFile = '';
+  historyList: ViewHistory[] = [];
+
+  visibleDrawer = false;
+  placement: NzDrawerPlacement = 'bottom';
+
   allDone = false;
   uplodInfo = '';
   speedInfo = '';
   uploadUrl = HttpUrl.upload;
 
   loading = true;
-
-  visibleScan = false;
 
   fileType = FileType.file;
   size: NzButtonSize = 'small';
@@ -62,11 +68,16 @@ export class FilesComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private storage: CommonStorageService,
+    private pathService: PathService,
+    private viewService: ViewModeService,
+    private lastView: LastViewService,
+    private historyService: ViewHistoryService,
+    private gridLayoutService: GridLayoutService,
     private message: NzMessageService
   ) {
-    this.view = !!this.storage.getView();
-    this.gridStyle = !!this.storage.getStyle();
+    this.view = !!this.viewService.getItem();
+    this.gridStyle = !!this.gridLayoutService.getItem();
+    this.lastViewFile =  this.lastView.getItem();
     this.loadData();
   }
 
@@ -122,7 +133,7 @@ export class FilesComponent implements OnInit {
   }
 
   currentPath(path: string) {
-    this.storage.setPath(path);
+    this.pathService.setItem(path);
     this.cache.path = path;
   }
 
@@ -133,7 +144,7 @@ export class FilesComponent implements OnInit {
         this.loading = false;
         if (data && data.success) {
           this.root = data.path;
-          const path = this.storage.getPath() || this.root;
+          const path = this.pathService.getItem() || this.root;
           this.fileMap = {};
           this.setPathMap(data);
           this.children = this.sort(path);
@@ -148,7 +159,23 @@ export class FilesComponent implements OnInit {
       this.children = this.sort(item.path);
     } else if (item.type === FileType.file) {
       const url = HttpLocalhost + item.download;
-      this.view ? window.open(url) : this.downloadHttp(item, url);
+      if (this.view) {
+        const w = window.open(url);
+        if (w?.document) {
+          this.lastView.setItem(item.path);
+          this.lastViewFile = item.path;
+          w.document.title = item.name;
+          const date = new Date();
+          this.historyService.setList({
+            time: date.toLocaleTimeString(),
+            date: date.toLocaleDateString(),
+            path: item.path,
+            fileName: item.name
+          })
+        }
+      } else {
+        this.downloadHttp(item, url);
+      }
     }
   }
 
@@ -159,14 +186,19 @@ export class FilesComponent implements OnInit {
     // }).subscribe(res => { })
   }
 
-  onViewChange(value: boolean) {
-    this.view = value;
-    this.storage.setView(value);
+  openDrawer() {
+    this.visibleDrawer = true;
+    this.historyList = this.historyService.getList();
   }
 
-  onStyleChange(value: boolean) {
-    this.gridStyle = value;
-    this.storage.setStyle(value);
+  onViewChange() {
+    this.view = !this.view;
+    this.viewService.setItemByBoolean(this.view);
+  }
+
+  onStyleChange() {
+    this.gridStyle = !this.gridStyle;
+    this.gridLayoutService.setItemByBoolean(this.gridStyle);
   }
 
   sort(key: string): any[] {
@@ -247,5 +279,5 @@ export class FilesComponent implements OnInit {
   // }
   // }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

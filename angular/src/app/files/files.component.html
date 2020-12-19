@@ -50,20 +50,23 @@
       </li>
     </ul>
     <div class="switch">
-      <nz-switch
-        [ngModel]="gridStyle"
-        class="style"
-        (ngModelChange)="onStyleChange($event)"
-        nzCheckedChildren="Grid"
-        nzUnCheckedChildren="Grid"
-      ></nz-switch>
-
-      <nz-switch
-        [ngModel]="view"
-        (ngModelChange)="onViewChange($event)"
-        nzCheckedChildren="View"
-        nzUnCheckedChildren="View"
-      ></nz-switch>
+      <i
+        nz-icon
+        nzType="unordered-list"
+        (click)="onStyleChange()"
+        nzTheme="outline"
+        [class.selected]="!gridStyle"
+      ></i>
+      <i
+        nz-icon
+        nzType="fund-view"
+        (click)="onViewChange()"
+        nzTheme="outline"
+        [class.selected]="view"
+      ></i>
+      <button (click)="openDrawer()" nz-button [nzSize]="size">
+        <i nz-icon nzType="environment" nzTheme="outline"></i>
+      </button>
     </div>
   </div>
   <ul class="file-box" [class.list]="!gridStyle" [class.grid]="gridStyle">
@@ -81,7 +84,11 @@
         nzTheme="outline"
       ></i>
       <label class="file-name">
-        <span (click)="fileClick(item)">{{ item.name }}</span>
+        <span
+          [class.last-review]="lastViewFile === item.path"
+          (click)="fileClick(item)"
+          >{{ item.name }}</span
+        >
       </label>
       <span class="file-size">{{ toSize(item.size) }}</span>
     </li>
@@ -94,3 +101,22 @@
     <p>loading</p>
   </div>
 </ng-template>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visibleDrawer"
+  [nzPlacement]="placement"
+  nzTitle="Preview history"
+  (nzOnClose)="visibleDrawer = false"
+>
+  <ng-container *nzDrawerContent>
+    <div class="his-list" *ngFor="let item of historyList; let i = index">
+      <a>[{{ i + 1 }}] {{ item.fileName }}</a>
+      <p>
+        <span class="name">{{ item.time }}</span> {{ item.date }}
+      </p>
+      <p>{{ item.path }}</p>
+    </div>
+    <span *ngIf="!historyList.length">No data</span>
+  </ng-container>
+</nz-drawer>

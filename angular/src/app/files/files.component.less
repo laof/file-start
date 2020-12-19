@@ -75,10 +75,20 @@ p {
 
 .switch {
   margin-left: auto;
-  width: 132px;
+  width: 110px;
   text-align: right;
-  .style {
-    margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  > i {
+    margin-right: 14px;
+    color: #bbb;
+    cursor: pointer;
+
+    &.selected {
+      color: #0758be;
+    }
   }
 }
 
@@ -111,6 +121,10 @@ p {
   .file-name {
     cursor: pointer;
     font-size: 12px;
+    
+    .last-review {
+      color: #6ca91c;
+    }
   }
 
   .flag-icon {
@@ -199,5 +213,24 @@ p {
       display: flex;
       flex-direction: column;
     }
+  }
+}
+
+.his-list {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  a {
+    font-weight: bold;
+  }
+
+  .name {
+    color: #66d569;
+  }
+  p {
+    color: #b6b6b6;
+  }
+  &:last-child {
+    border: none;
   }
 }

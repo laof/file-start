@@ -51,26 +51,14 @@ export class AppComponent {
     this.visible = true;
   }
 
-  testShutdown() {
-    this.loadHostInfo().subscribe(
-      (res) => {},
-      () => location.reload()
-    );
-  }
-
-  off() {
-    this.http.post(HttpUrl.shutdown, null).subscribe((res) => {
-      setTimeout(() => this.testShutdown(), 5000);
-    });
-  }
-
   shutdown() {
     this.modalService.confirm({
-      nzTitle: 'Confirm',
-      nzContent: `Shut down the server host？`,
+      nzTitle: '☠☠☠',
+      nzContent: 'Turn it off in a minute?',
       nzOnOk: () => {
-        this.off();
+        this.http.post(HttpUrl.shutdown, null).subscribe(() => {
+        });
       },
-    });
+    }, 'error');
   }
 }
