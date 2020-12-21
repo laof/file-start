@@ -37,35 +37,32 @@
       <i nz-icon nzType="cloud-upload"></i>
     </button>
   </div>
-  <div class="bar view">
-    <ul class="btn">
-      <li (click)="home()">
-        <i nz-icon nzType="home" nzTheme="outline"></i> Home
-      </li>
-      <li (click)="back()">
-        <i nz-icon nzType="rollback" nzTheme="outline"></i> Back
-      </li>
-      <li (click)="loadData()">
-        <i nz-icon nzType="reload" nzTheme="outline"></i> Reload
-      </li>
-    </ul>
-    <div class="switch">
-      <i
-        nz-icon
-        nzType="unordered-list"
-        (click)="onStyleChange()"
-        nzTheme="outline"
-        [class.selected]="!gridStyle"
-      ></i>
-      <i
-        nz-icon
-        nzType="fund-view"
-        (click)="onViewChange()"
-        nzTheme="outline"
-        [class.selected]="view"
-      ></i>
+  <div class="tool-bar view">
+    <div class="dir-jump">
+      <button (click)="home()" nz-button [nzSize]="size">
+        <i nz-icon nzType="home" nzTheme="outline"></i>
+      </button>
+      <button (click)="back()" nz-button [nzSize]="size">
+        <i nz-icon nzType="rollback" nzTheme="outline"></i>
+      </button>
+      <button (click)="loadData()" nz-button [nzSize]="size">
+        <i nz-icon nzType="reload" nzTheme="outline"></i>
+      </button>
+    </div>
+    <div class="changer">
+      <button (click)="onStyleChange()" nz-button [nzSize]="size">
+        <i
+          nz-icon
+          nzType="unordered-list"
+          nzTheme="outline"
+          [class.selected]="!gridStyle"
+        ></i>
+      </button>
+      <button (click)="onViewChange()" nz-button [nzSize]="size">
+        <i nz-icon nzType="read" nzTheme="outline" [class.selected]="view"></i>
+      </button>
       <button (click)="openDrawer()" nz-button [nzSize]="size">
-        <i nz-icon nzType="environment" nzTheme="outline"></i>
+        <i nz-icon nzType="history" nzTheme="outline"></i>
       </button>
     </div>
   </div>

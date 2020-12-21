@@ -67,45 +67,37 @@ p {
   padding-top: 50px;
 }
 
-.bar {
+.tool-bar {
   display: flex;
   align-items: center;
   padding: 5px 9px;
 }
 
-.switch {
+.dir-jump {
+  button {
+    margin-right: 14px;
+  }
+}
+
+.changer {
   margin-left: auto;
-  width: 110px;
   text-align: right;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 
-  > i {
+  button {
     margin-right: 14px;
-    color: #bbb;
-    cursor: pointer;
+    > i.selected {
+      color: #093cf7;
+    }
 
-    &.selected {
-      color: #0758be;
+    &:last-child {
+      margin-right: 0;
     }
   }
 }
 
-.btn {
-  // width: 200px;
-  margin-bottom: 0;
-  li {
-    cursor: pointer;
-    user-select: none;
-    margin-right: 16px;
-    display: inline-block;
-    font-size: 12px;
-    &:hover {
-      color: gray;
-    }
-  }
-}
 //-------------------------------------------
 
 .file-box {
@@ -121,7 +113,7 @@ p {
   .file-name {
     cursor: pointer;
     font-size: 12px;
-    
+
     .last-review {
       color: #6ca91c;
     }
