@@ -50,7 +50,12 @@
       </button>
     </div>
     <div class="changer">
-      <button (click)="onStyleChange()" nz-button [nzSize]="size">
+      <button
+        (click)="onStyleChange()"
+        class="status"
+        nz-button
+        [nzSize]="size"
+      >
         <i
           nz-icon
           nzType="unordered-list"
@@ -58,7 +63,7 @@
           [class.selected]="!gridStyle"
         ></i>
       </button>
-      <button (click)="onViewChange()" nz-button [nzSize]="size">
+      <button (click)="onViewChange()" class="status" nz-button [nzSize]="size">
         <i nz-icon nzType="read" nzTheme="outline" [class.selected]="view"></i>
       </button>
       <button (click)="openDrawer()" nz-button [nzSize]="size">

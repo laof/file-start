@@ -88,12 +88,16 @@ p {
 
   button {
     margin-right: 14px;
-    > i.selected {
-      color: #093cf7;
-    }
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &.status i {
+      color: #d9d9d9;
+      &.selected {
+        color: #40a9ff;
+      }
     }
   }
 }
