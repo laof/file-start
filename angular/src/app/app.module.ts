@@ -23,6 +23,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { antDesignIcons } from './icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { UploadComponent } from './upload/upload.component';
 
 registerLocaleData(en);
 
@@ -38,7 +39,7 @@ const LoadNzModuel = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, FilesComponent, ChatComponent],
+  declarations: [AppComponent, FilesComponent, ChatComponent, UploadComponent],
   imports: [
     ...LoadNzModuel,
     NzIconModule.forRoot(antDesignIcons),

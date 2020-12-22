@@ -1,0 +1,36 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="left"
+  [nzMaskClosable]="false"
+  nzTitle="Preview history"
+  (nzOnClose)="uploadDrawer = false"
+>
+  <ng-container *nzDrawerContent>
+    <div class="upload-info">
+      <button (click)="clearList()" nz-button>
+        <i nz-icon nzType="clear" nzTheme="outline"></i> Clear
+      </button>
+      <div class="detail" [class.done]="allDone">
+        <span *ngIf="!allDone">{{ speedInfo }}</span>
+        <span>{{ uplodInfo }}</span>
+      </div>
+    </div>
+
+    <div class="clearfix view upload-list" [class.size]="fileList.length">
+      <nz-upload
+        [nzAction]="uploadUrl"
+        nzListType="picture"
+        [nzMultiple]="true"
+        nzName="upload"
+        [nzShowButton]="false"
+        [nzRemove]="deleteFile"
+        (nzChange)="uploadChange()"
+        [nzData]="{ dir: uploadUrl }"
+        [(nzFileList)]="fileList"
+      >
+        <a #uploadTaget></a>
+      </nz-upload>
+    </div>
+  </ng-container>
+</nz-drawer>

@@ -1,34 +1,10 @@
-<div *ngIf="fileList.length" class="upload-info">
-  <button (click)="clearList()" nz-button>
-    <i nz-icon nzType="clear" nzTheme="outline"></i> Clear
-  </button>
-  <div class="detail" [class.done]="allDone">
-    <span *ngIf="!allDone">{{ speedInfo }}</span>
-    <span>{{ uplodInfo }}</span>
-  </div>
-</div>
-
-<div class="clearfix view upload-list" [class.size]="fileList.length">
-  <nz-upload
-    [nzAction]="uploadUrl"
-    nzListType="picture"
-    [nzMultiple]="true"
-    nzName="upload"
-    [nzShowButton]="false"
-    [nzRemove]="deleteFile"
-    (nzChange)="uploadChange()"
-    [nzData]="{ dir: cache.path }"
-    [(nzFileList)]="fileList"
-  >
-    <a #uploadTaget></a>
-  </nz-upload>
-</div>
+<app-upload [visible]="uploadDrawer"></app-upload>
 
 <div *ngIf="!loading; else loadingRef">
   <div class="path">
     <span>{{ cache.path }}</span>
     <button
-      (click)="uploadTaget.click()"
+      (click)="upload()"
       nz-button
       nzType="primary"
       [nzSize]="size"

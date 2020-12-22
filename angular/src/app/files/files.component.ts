@@ -3,10 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
-import { GridLayoutService, LastViewService, PathService, ViewHistory, ViewHistoryService, ViewModeService, } from '../shared/service/storage.service';
+import {
+  GridLayoutService,
+  LastViewService,
+  PathService,
+  ViewHistory,
+  ViewHistoryService,
+  ViewModeService,
+} from '../shared/service/storage.service';
 import { saveAs } from 'file-saver';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
+import { toSize } from '../shared/common';
 
 enum FileType {
   directory = 'directory',
@@ -37,6 +45,7 @@ export class FilesComponent implements OnInit {
   lastViewFile = '';
   historyList: ViewHistory[] = [];
 
+  uploadDrawer = false;
   visibleDrawer = false;
   placement: NzDrawerPlacement = 'bottom';
 
@@ -61,11 +70,6 @@ export class FilesComponent implements OnInit {
     homePath: '',
   };
 
-  deleteFile = () => {
-    setTimeout(() => this.uploadChange(), 100);
-    return true;
-  };
-
   constructor(
     private http: HttpClient,
     private pathService: PathService,
@@ -77,8 +81,12 @@ export class FilesComponent implements OnInit {
   ) {
     this.view = !!this.viewService.getItem();
     this.gridStyle = !!this.gridLayoutService.getItem();
-    this.lastViewFile =  this.lastView.getItem();
+    this.lastViewFile = this.lastView.getItem();
     this.loadData();
+  }
+
+  upload() {
+    this.uploadDrawer = true;
   }
 
   back() {
@@ -106,30 +114,6 @@ export class FilesComponent implements OnInit {
         this.setPathMap(v);
       });
     }
-  }
-
-  toSize(size: number, numType = false): any {
-    var num = 1024.0;
-    //byte
-    if (!size) {
-      return numType ? '0' : 'No size';
-    }
-    if (size < num) {
-      return size + 'B';
-    }
-    if (size < Math.pow(num, 2)) {
-      return (size / num).toFixed(2) + 'K';
-    }
-    //kb
-    if (size < Math.pow(num, 3)) {
-      return (size / Math.pow(num, 2)).toFixed(2) + 'M';
-    }
-    //M
-    if (size < Math.pow(num, 4)) {
-      return (size / Math.pow(num, 3)).toFixed(2) + 'G';
-    }
-    //G
-    return (size / Math.pow(num, 4)).toFixed(2) + 'T';
   }
 
   currentPath(path: string) {
@@ -170,8 +154,8 @@ export class FilesComponent implements OnInit {
             time: date.toLocaleTimeString(),
             date: date.toLocaleDateString(),
             path: item.path,
-            fileName: item.name
-          })
+            fileName: item.name,
+          });
         }
       } else {
         this.downloadHttp(item, url);
@@ -220,6 +204,10 @@ export class FilesComponent implements OnInit {
     return [];
   }
 
+  toSize(size: number) {
+    return toSize(size);
+  }
+
   uploadChange() {
     let total = 0;
     let receive = 0;
@@ -242,14 +230,14 @@ export class FilesComponent implements OnInit {
 
     if (this.fileList.length) {
       const s = this.fileList.length;
-      const t = this.toSize(total, true);
-      const r = this.toSize(receive, true);
+      const t = toSize(total, true);
+      const r = toSize(receive, true);
 
       // ---speed
       const size = receive - this.oldReceive;
       let speed = '';
       if (size > 0) {
-        speed = `${this.toSize(size, true)}/s`;
+        speed = `${toSize(size, true)}/s`;
       }
       //  speed---
 
@@ -258,10 +246,6 @@ export class FilesComponent implements OnInit {
 
       this.oldReceive = receive;
     }
-  }
-
-  clearList() {
-    this.fileList = [];
   }
 
   // uploadChange() {
@@ -279,5 +263,5 @@ export class FilesComponent implements OnInit {
   // }
   // }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
