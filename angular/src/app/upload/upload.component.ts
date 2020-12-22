@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { toDataURL } from 'qrcode';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { toSize } from '../shared/common';
+import { HttpUrl } from '../shared/http/http-url';
 
 @Component({
   selector: 'app-upload',
@@ -12,9 +12,7 @@ import { toSize } from '../shared/common';
   styleUrls: ['./upload.component.less'],
 })
 export class UploadComponent {
-  @ViewChild('uploadTaget', { static: true }) uploadTaget:
-    | ElementRef
-    | undefined;
+  @ViewChild('uploadTaget') uploadTaget: ElementRef | undefined;
 
   #visible = false;
   allDone: boolean = false;
@@ -22,16 +20,17 @@ export class UploadComponent {
   uplodInfo = '';
   oldReceive: number = 0;
 
+  actionUrl = HttpUrl.upload;
+
   fileList: NzUploadFile[] = [];
 
-  @Input() uploadUrl = '';
+  @Input() dir = '';
   @Input()
   set visible(value: boolean) {
     if (value && this.uploadTaget) {
-      this.uploadTaget.nativeElement.onclick();
-      console.log(123);
+      this.clearList();
+      this.uploadTaget.nativeElement.click();
     }
-    console.log(value);
     this.#visible = value;
   }
   get visible(): boolean {
@@ -47,7 +46,7 @@ export class UploadComponent {
     private message: NzMessageService,
     private modalService: NzModalService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   cancel() {
     this.visible = false;
@@ -55,7 +54,7 @@ export class UploadComponent {
 
   clearList() {
     this.fileList = [];
-    this.visible = false;
+    this.uploadChange();
   }
 
   uploadChange() {

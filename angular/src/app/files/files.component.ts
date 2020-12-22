@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
@@ -15,6 +15,7 @@ import { saveAs } from 'file-saver';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { toSize } from '../shared/common';
+import { UploadComponent } from '../upload/upload.component';
 
 enum FileType {
   directory = 'directory',
@@ -38,21 +39,16 @@ interface FileItem {
   styleUrls: ['./files.component.less'],
 })
 export class FilesComponent implements OnInit {
+  @ViewChild('uploadRef') uploadRef: UploadComponent | undefined;
   private root = '';
   private fileMap: any = {};
-  private oldReceive = 0;
 
   lastViewFile = '';
   historyList: ViewHistory[] = [];
 
-  uploadDrawer = false;
   visibleDrawer = false;
   placement: NzDrawerPlacement = 'bottom';
-
-  allDone = false;
-  uplodInfo = '';
-  speedInfo = '';
-  uploadUrl = HttpUrl.upload;
+  uploadDir = '';
 
   loading = true;
 
@@ -64,7 +60,7 @@ export class FilesComponent implements OnInit {
   gridStyle = false;
 
   cache = {
-    path: '',
+    path: 'loading...',
     mode: '',
     gridList: '',
     homePath: '',
@@ -86,7 +82,10 @@ export class FilesComponent implements OnInit {
   }
 
   upload() {
-    this.uploadDrawer = true;
+    if (this.uploadRef) {
+      this.uploadDir = this.cache.path;
+      this.uploadRef.visible = true;
+    }
   }
 
   back() {
@@ -208,60 +207,5 @@ export class FilesComponent implements OnInit {
     return toSize(size);
   }
 
-  uploadChange() {
-    let total = 0;
-    let receive = 0;
-    let done = 0;
-
-    this.uplodInfo = '';
-    this.speedInfo = '';
-
-    this.fileList.forEach((item) => {
-      if (item.status === 'done') {
-        done++;
-      }
-      if (item.percent && item.size) {
-        total += item.size || 0;
-        receive += item.size * item.percent * 0.01;
-      }
-    });
-
-    this.allDone = this.fileList.length === done;
-
-    if (this.fileList.length) {
-      const s = this.fileList.length;
-      const t = toSize(total, true);
-      const r = toSize(receive, true);
-
-      // ---speed
-      const size = receive - this.oldReceive;
-      let speed = '';
-      if (size > 0) {
-        speed = `${toSize(size, true)}/s`;
-      }
-      //  speed---
-
-      this.speedInfo = `${speed} ${done}/${s}`;
-      this.uplodInfo = this.allDone ? `Total: ${s} (${t})` : `${r}/${t}`;
-
-      this.oldReceive = receive;
-    }
-  }
-
-  // uploadChange() {
-  // this.allDone = !this.fileList.find((item) => item.status !== 'done');
-  // if (this.allDone) {
-  //   this.message.create('success', 'Upload successfully');
-  // }
-  // if (data.type === 'success') {
-  //   const index = this.fileList.findIndex(item => {
-  //     return item.uid === data.file.uid
-  //   })
-  //   if (index != -1) {
-  //     this.fileList.splice(index, 1);
-  //   }
-  // }
-  // }
-
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

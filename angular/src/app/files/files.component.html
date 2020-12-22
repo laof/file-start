@@ -1,6 +1,6 @@
-<app-upload [visible]="uploadDrawer"></app-upload>
+<app-upload #uploadRef [dir]="uploadDir"></app-upload>
 
-<div *ngIf="!loading; else loadingRef">
+<div class="main">
   <div class="path">
     <span>{{ cache.path }}</span>
     <button
@@ -47,30 +47,32 @@
       </button>
     </div>
   </div>
-  <ul class="file-box" [class.list]="!gridStyle" [class.grid]="gridStyle">
-    <li
-      *ngFor="let item of children"
-      [title]="item.name + '  ' + toSize(item.size)"
-      class="target"
-      [class.file]="item.type === fileType"
-    >
-      <i
-        (click)="fileClick(item)"
-        nz-icon
-        class="flag-icon {{ item.type }}"
-        [nzType]="item.type === fileType ? 'profile' : 'folder'"
-        nzTheme="outline"
-      ></i>
-      <label class="file-name">
-        <span
-          [class.last-review]="lastViewFile === item.path"
+  <ng-container *ngIf="!loading; else loadingRef">
+    <ul class="file-box" [class.list]="!gridStyle" [class.grid]="gridStyle">
+      <li
+        *ngFor="let item of children"
+        [title]="item.name + '  ' + toSize(item.size)"
+        class="target"
+        [class.file]="item.type === fileType"
+      >
+        <i
           (click)="fileClick(item)"
-          >{{ item.name }}</span
-        >
-      </label>
-      <span class="file-size">{{ toSize(item.size) }}</span>
-    </li>
-  </ul>
+          nz-icon
+          class="flag-icon {{ item.type }}"
+          [nzType]="item.type === fileType ? 'profile' : 'folder'"
+          nzTheme="outline"
+        ></i>
+        <label class="file-name">
+          <span
+            [class.last-review]="lastViewFile === item.path"
+            (click)="fileClick(item)"
+            >{{ item.name }}</span
+          >
+        </label>
+        <span class="file-size">{{ toSize(item.size) }}</span>
+      </li>
+    </ul>
+  </ng-container>
 </div>
 
 <ng-template #loadingRef>

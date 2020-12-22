@@ -1,15 +1,20 @@
 <nz-drawer
-  [nzClosable]="false"
+  [nzClosable]="true"
+  [nzWidth]="310"
+  nzWrapClassName="upload"
   [nzVisible]="visible"
   nzPlacement="left"
   [nzMaskClosable]="false"
-  nzTitle="Preview history"
-  (nzOnClose)="uploadDrawer = false"
+  nzTitle="Upload list"
+  (nzOnClose)="visible = false"
 >
   <ng-container *nzDrawerContent>
-    <div class="upload-info">
+    <div class="upload-header">
+      <button (click)="uploadTaget.click()" nz-button>
+        <i nz-icon nzType="cloud-upload"></i>
+      </button>
       <button (click)="clearList()" nz-button>
-        <i nz-icon nzType="clear" nzTheme="outline"></i> Clear
+        <i nz-icon nzType="clear"></i>
       </button>
       <div class="detail" [class.done]="allDone">
         <span *ngIf="!allDone">{{ speedInfo }}</span>
@@ -19,14 +24,14 @@
 
     <div class="clearfix view upload-list" [class.size]="fileList.length">
       <nz-upload
-        [nzAction]="uploadUrl"
+        [nzAction]="actionUrl"
         nzListType="picture"
         [nzMultiple]="true"
         nzName="upload"
         [nzShowButton]="false"
         [nzRemove]="deleteFile"
         (nzChange)="uploadChange()"
-        [nzData]="{ dir: uploadUrl }"
+        [nzData]="{ dir: dir }"
         [(nzFileList)]="fileList"
       >
         <a #uploadTaget></a>
