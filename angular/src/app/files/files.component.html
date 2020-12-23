@@ -86,11 +86,10 @@
 >
   <ng-container *nzDrawerContent>
     <div class="his-list" *ngFor="let item of historyList; let i = index">
-      <a>[{{ i + 1 }}] {{ item.fileName }}</a>
-      <p>
-        <span class="name">{{ item.time }}</span> {{ item.date }}
-      </p>
-      <p>{{ item.path }}</p>
+      <a
+        >{{ i + 1 }}) {{ item.fileName }} [ {{ item.time }} ] {{ item.date }}</a
+      >
+      <div>{{ item.path }}</div>
     </div>
     <span *ngIf="!historyList.length">No data</span>
   </ng-container>

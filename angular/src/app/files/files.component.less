@@ -66,6 +66,8 @@
   right: 0;
   bottom: 0;
   top: 74px;
+  padding: 0;
+  margin: 0;
 
   .flag-icon {
     &.file {
@@ -127,10 +129,10 @@
       }
       .file-name {
         display: inline-block;
-        width: calc(100% - 70px);
         vertical-align: middle;
         text-align: left;
         font-size: 12px;
+        flex: 1;
       }
       .file-size {
         width: 60px;
@@ -178,15 +180,12 @@
   padding-bottom: 4px;
 
   a {
-    color: black;
-  }
-  p {
-    color: #b6b6b6;
+    color: #40a9ff;
     word-break: break-all;
   }
-
-  .name {
-    color: #40a9ff;
+  div {
+    color: #b6b6b6;
+    word-break: break-all;
   }
 
   &:last-child {
