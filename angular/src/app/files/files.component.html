@@ -1,79 +1,72 @@
 <app-upload #uploadRef [dir]="uploadDir"></app-upload>
 
-<div class="main">
-  <div class="path">
-    <span>{{ cache.path }}</span>
-    <button
-      (click)="upload()"
-      nz-button
-      nzType="primary"
-      [nzSize]="size"
-      nzShape="circle"
-    >
-      <i nz-icon nzType="cloud-upload"></i>
+<div class="path">
+  <span>{{ cache.path }}</span>
+  <button
+    (click)="upload()"
+    nz-button
+    nzType="primary"
+    [nzSize]="size"
+    nzShape="circle"
+  >
+    <i nz-icon nzType="cloud-upload"></i>
+  </button>
+</div>
+<div class="tool-bar view">
+  <div class="dir-jump">
+    <button (click)="home()" nz-button [nzSize]="size">
+      <i nz-icon nzType="home" nzTheme="outline"></i>
+    </button>
+    <button (click)="back()" nz-button [nzSize]="size">
+      <i nz-icon nzType="rollback" nzTheme="outline"></i>
+    </button>
+    <button (click)="loadData()" nz-button [nzSize]="size">
+      <i nz-icon nzType="reload" nzTheme="outline"></i>
     </button>
   </div>
-  <div class="tool-bar view">
-    <div class="dir-jump">
-      <button (click)="home()" nz-button [nzSize]="size">
-        <i nz-icon nzType="home" nzTheme="outline"></i>
-      </button>
-      <button (click)="back()" nz-button [nzSize]="size">
-        <i nz-icon nzType="rollback" nzTheme="outline"></i>
-      </button>
-      <button (click)="loadData()" nz-button [nzSize]="size">
-        <i nz-icon nzType="reload" nzTheme="outline"></i>
-      </button>
-    </div>
-    <div class="changer">
-      <button
-        (click)="onStyleChange()"
-        class="status"
-        nz-button
-        [nzSize]="size"
-      >
-        <i
-          nz-icon
-          nzType="unordered-list"
-          nzTheme="outline"
-          [class.selected]="!gridStyle"
-        ></i>
-      </button>
-      <button (click)="onViewChange()" class="status" nz-button [nzSize]="size">
-        <i nz-icon nzType="read" nzTheme="outline" [class.selected]="view"></i>
-      </button>
-      <button (click)="openDrawer()" nz-button [nzSize]="size">
-        <i nz-icon nzType="history" nzTheme="outline"></i>
-      </button>
-    </div>
+  <div class="changer">
+    <button (click)="onStyleChange()" class="status" nz-button [nzSize]="size">
+      <i
+        nz-icon
+        nzType="unordered-list"
+        nzTheme="outline"
+        [class.selected]="!gridStyle"
+      ></i>
+    </button>
+    <button (click)="onViewChange()" class="status" nz-button [nzSize]="size">
+      <i nz-icon nzType="read" nzTheme="outline" [class.selected]="view"></i>
+    </button>
+    <button (click)="openDrawer()" nz-button [nzSize]="size">
+      <i nz-icon nzType="history" nzTheme="outline"></i>
+    </button>
   </div>
-  <ng-container *ngIf="!loading; else loadingRef">
-    <ul class="file-box" [class.list]="!gridStyle" [class.grid]="gridStyle">
-      <li
-        *ngFor="let item of children"
-        [title]="item.name + '  ' + toSize(item.size)"
-        class="target"
-        [class.file]="item.type === fileType"
-      >
-        <i
-          (click)="fileClick(item)"
-          nz-icon
-          class="flag-icon {{ item.type }}"
-          [nzType]="item.type === fileType ? 'profile' : 'folder'"
-          nzTheme="outline"
-        ></i>
-        <label class="file-name">
-          <span
-            [class.last-review]="lastViewFile === item.path"
-            (click)="fileClick(item)"
-            >{{ item.name }}</span
-          >
-        </label>
-        <span class="file-size">{{ toSize(item.size) }}</span>
-      </li>
-    </ul>
-  </ng-container>
 </div>
+<ng-container *ngIf="!loading; else loadingRef">
+  <ul class="file-box" [class.list]="!gridStyle" [class.grid]="gridStyle">
+    <li
+      *ngFor="let item of children"
+      [title]="item.name + '  ' + toSize(item.size)"
+      class="target"
+      [class.file]="item.type === fileType"
+    >
+      <i
+        (click)="fileClick(item)"
+        nz-icon
+        class="flag-icon {{ item.type }}"
+        [nzType]="item.type === fileType ? 'profile' : 'folder'"
+        nzTheme="outline"
+      ></i>
+      <label class="file-name">
+        <span
+          [class.last-review]="lastViewFile === item.path"
+          (click)="fileClick(item)"
+          >{{ item.name }}</span
+        >
+      </label>
+      <span class="file-size">{{ toSize(item.size) }}</span>
+    </li>
+  </ul>
+</ng-container>
 
 <ng-template #loadingRef>
   <div class="loading-box">
@@ -83,10 +76,12 @@
 </ng-template>
 
 <nz-drawer
-  [nzClosable]="false"
+  nzTitle="Preview record"
+  nzPlacement="right"
+  nzWrapClassName="history"
+  [nzWidth]="310"
+  [nzClosable]="true"
   [nzVisible]="visibleDrawer"
-  [nzPlacement]="placement"
-  nzTitle="Preview history"
   (nzOnClose)="visibleDrawer = false"
 >
   <ng-container *nzDrawerContent>

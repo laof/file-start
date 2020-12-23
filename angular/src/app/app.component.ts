@@ -52,13 +52,19 @@ export class AppComponent {
   }
 
   shutdown() {
-    this.modalService.confirm({
-      nzTitle: '☠☠☠',
-      nzContent: 'Turn it off in a minute?',
-      nzOnOk: () => {
-        this.http.post(HttpUrl.shutdown, null).subscribe(() => {
-        });
+    this.modalService.confirm(
+      {
+        nzTitle: '☠☠☠',
+        nzContent: 'Turn it off in a minute?',
+        nzOkText: 'Yes',
+        nzOkType: 'primary',
+        nzOkDanger: true,
+        nzCancelText: 'No',
+        nzOnOk: () => {
+          this.http.post(HttpUrl.shutdown, null).subscribe(() => {});
+        },
       },
-    }, 'error');
+      'error'
+    );
   }
 }

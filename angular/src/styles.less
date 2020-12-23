@@ -1,7 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~ng-zorro-antd/ng-zorro-antd.min.css';
-// @import "~ng-zorro-antd/style/entry.less"; /* 引入基本样式 */
-// @import "~ng-zorro-antd/button/style/entry.less"; /* 引入组件样式 */
+html,
+body {
+  overflow: hidden;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+p {
+  margin-bottom: 0;
+}
+
+.view {
+  padding: 0 16px;
+}
 
 .ant-menu-horizontal {
   position: fixed;
@@ -13,3 +29,16 @@
   background: #ecedf1;
 }
 
+.ant-drawer-header {
+  padding: 16px 6px;
+}
+
+.history .ant-drawer-body {
+  padding: 6px;
+}
+
+.upload .ant-drawer-body {
+  padding: 6px 0;
+  position: relative;
+  overflow: hidden;
+}

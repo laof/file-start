@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
@@ -12,7 +12,6 @@ import {
   ViewModeService,
 } from '../shared/service/storage.service';
 import { saveAs } from 'file-saver';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { toSize } from '../shared/common';
 import { UploadComponent } from '../upload/upload.component';
@@ -47,7 +46,6 @@ export class FilesComponent implements OnInit {
   historyList: ViewHistory[] = [];
 
   visibleDrawer = false;
-  placement: NzDrawerPlacement = 'bottom';
   uploadDir = '';
 
   loading = true;
@@ -72,8 +70,7 @@ export class FilesComponent implements OnInit {
     private viewService: ViewModeService,
     private lastView: LastViewService,
     private historyService: ViewHistoryService,
-    private gridLayoutService: GridLayoutService,
-    private message: NzMessageService
+    private gridLayoutService: GridLayoutService
   ) {
     this.view = !!this.viewService.getItem();
     this.gridStyle = !!this.gridLayoutService.getItem();
@@ -207,5 +204,5 @@ export class FilesComponent implements OnInit {
     return toSize(size);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

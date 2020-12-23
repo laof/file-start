@@ -1,25 +1,3 @@
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style: none;
-}
-
-.view {
-  padding: 0 16px;
-}
-
-.main {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  top: 46px;
-  left: 0;
-  right: 0;
-}
-
 .path {
   display: flex;
   align-items: center;
@@ -38,14 +16,9 @@ li {
   }
 }
 
-p {
-  margin-bottom: 0;
-}
-
 .loading-box {
   text-align: center;
   font-size: 14px;
-  padding-top: 50px;
 }
 
 .tool-bar {
@@ -108,7 +81,7 @@ p {
     font-size: 12px;
 
     .last-review {
-      color: #6ca91c;
+      color: #40a9ff;
     }
   }
 
@@ -200,19 +173,22 @@ p {
 }
 
 .his-list {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f7f7f7;
   margin-bottom: 4px;
   padding-bottom: 4px;
-  a {
-    font-weight: bold;
-  }
 
-  .name {
-    color: #66d569;
+  a {
+    color: black;
   }
   p {
     color: #b6b6b6;
+    word-break: break-all;
   }
+
+  .name {
+    color: #40a9ff;
+  }
+
   &:last-child {
     border: none;
   }
