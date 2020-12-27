@@ -1,6 +1,6 @@
 {
   "name": "shared-files",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A Simple File Sharing Service in LAN",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,6 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "webpack": "^5.10.2",
-    "webpack-cli": "^4.2.0"
+    "webpack": "^5.10.2"
   }
 }
