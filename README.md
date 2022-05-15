@@ -1,4 +1,4 @@
-# shared-files
+# files_server
 A Simple File Sharing Service in LAN
 # Network Neighborhood
 

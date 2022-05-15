@@ -1,13 +1,11 @@
 {
-  "name": "shared-files",
+  "name": "files_server",
   "version": "0.2.6",
   "description": "A Simple File Sharing Service in LAN",
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
-    "build-node": "node scripts/build.js",
-    "build-ng": "cd angular && npm run build",
-    "start-ng": "cd angular && npm run start"
+    "build-node": "node scripts/build.js"
   },
   "bin": {
     "shared": "./index.js"
@@ -17,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/laof/shared-files.git"
+    "url": "git+https://github.com/laof/files_server.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/laof/shared-files/issues"
+    "url": "https://github.com/laof/files_server/issues"
   },
   "files": [
     "web",
@@ -39,7 +37,7 @@
     "Network Neighborhood",
     "LAN"
   ],
-  "homepage": "https://github.com/laof/shared-files#readme",
+  "homepage": "https://github.com/laof/files_server#readme",
   "dependencies": {
     "directory-tree": "^2.2.1",
     "express": "^4.16.4",
