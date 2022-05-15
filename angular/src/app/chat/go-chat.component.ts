@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpLocalhost, HttpUrl } from '../shared/http/http-url';
-import * as io from 'socket.io-client';
 import { SocketIDService } from '../shared/service/storage.service';
 import { Message } from './message';
+
 
 @Component({
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.less']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class GoChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('listRef', { static: false }) listRef: ElementRef | undefined;
 
@@ -17,9 +17,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   list: Message[] = [];
   text: string = '';
 
-  private socket: any = null;
+  private websocket: WebSocket
+
+  private sendSocket(data: object) {
+    this.websocket.send(JSON.stringify(data));
+  }
 
   constructor(private http: HttpClient, private storage: SocketIDService) {
+
 
     const id = this.storage.getItem();
     if (!id) {
@@ -28,24 +33,41 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.myId = this.storage.getItem();
 
-    // this.list.push({
-    //   author: this.myId,
-    //   text: '123'
-    // })
+    const ws = "ws://" + location.host + "/api/chat";
 
-    const socket = io(HttpLocalhost);
-    socket.on('connect', () => {
-      socket.emit('chat message', this.myId);
-    });
-    socket.on('event', (data: any) => {
-    });
-    socket.on('chat message', (data: Message) => {
-      this.list.push(data);
+    const websocket = new WebSocket(ws);
+
+    this.websocket = websocket
+
+    websocket.onopen = (evt) => {
+      const data = {
+        type: "sign",
+        data: String(this.myId),
+      };
+
+      this.sendSocket(data)
+    };
+    websocket.onclose = function (evt) {
+      console.log("onclose", evt);
+    };
+
+    websocket.onmessage = (evt) => {
+      let res: any = {};
+      try {
+        res = JSON.parse(evt.data);
+      } catch (e) { }
+
+      res.data && this.list.push(res.data);
       this.scrollTop();
-    });
-    socket.on('disconnect', () => { });
+    };
 
-    this.socket = socket;
+
+    // socket.on('chat message', (data: Message) => {
+    //   this.list.push(data);
+    //   this.scrollTop();
+    // });
+
+    // this.socket = socket;
 
     this.http.post(HttpUrl.talkHistory, null).subscribe((res: any) => {
       const list: Message[] = res.list || [];
@@ -66,7 +88,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   send() {
     if (this.text && this.text != '\n') {
-      this.socket.emit('chat message', this.text);
+
+      const data = {
+        type: 'chat',
+        data: this.text
+      }
+
+      this.sendSocket(data);
     }
     this.clear();
   }
@@ -82,8 +110,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     try {
-      this.socket.disconnect();
-      this.socket.destroy();
+      this.websocket.close();
     } catch (e) {
       console.log('socket ngOnDestroy error');
     }

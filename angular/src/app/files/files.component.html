@@ -1,16 +1,23 @@
 <app-upload #uploadRef [dir]="uploadDir"></app-upload>
 
 <div class="path">
-  <span>{{ cache.path }}</span>
-  <button
-    (click)="upload()"
-    nz-button
-    nzType="primary"
-    [nzSize]="size"
-    nzShape="circle"
-  >
-    <i nz-icon nzType="cloud-upload"></i>
-  </button>
+  <nz-input-group [nzSize]="size" [nzAddOnAfter]="suffixIconButton">
+    <input
+      [nzSize]="size"
+      readonly
+      [value]="cache.path"
+      type="text"
+      nz-input
+      placeholder="input search text"
+    />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <div class="up-fs" (click)="upload()"> <i nz-icon nzType="cloud-upload"></i> </div>
+  </ng-template>
+  <!-- <span>{{ cache.path }}</span> -->
+  <!-- <button class="up-fs" (click)="upload()" nz-button [nzSize]="size">
+    <i nz-icon nzType="cloud-upload" nzTheme="outline"></i>
+  </button> -->
 </div>
 <div class="tool-bar view">
   <div class="dir-jump">

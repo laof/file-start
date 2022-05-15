@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,10 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FilesComponent } from './files/files.component';
-import { ChatComponent } from './chat/chat.component';
+// import { ChatComponent } from './chat/chat.component';
 import { CommonHttpInterceptor } from './shared/http/http.interceptor';
 
 import { NzUploadModule } from 'ng-zorro-antd/upload';
@@ -24,11 +24,16 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { antDesignIcons } from './icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { UploadComponent } from './upload/upload.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { initializeAppFactory } from './app-init.service';
+import { GoChatComponent } from './chat/go-chat.component';
+import { ChatComponent } from './chat/chat.component';
 
 registerLocaleData(en);
 
 const LoadNzModuel = [
   NzMenuModule,
+  NzInputModule,
   NzDrawerModule,
   NzMessageModule,
   NzModalModule,
@@ -38,8 +43,17 @@ const LoadNzModuel = [
   NzSpinModule,
 ];
 
+
+
 @NgModule({
-  declarations: [AppComponent, FilesComponent, ChatComponent, UploadComponent],
+  declarations: [
+    AppComponent,
+    FilesComponent,
+    ChatComponent,
+    UploadComponent,
+    GoChatComponent,
+    ChatComponent
+  ],
   imports: [
     ...LoadNzModuel,
     NzIconModule.forRoot(antDesignIcons),
@@ -51,6 +65,10 @@ const LoadNzModuel = [
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAppFactory,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonHttpInterceptor,

@@ -12,18 +12,19 @@
 </div>
 
 <div class="view send-message">
-  <button (click)="send()" nz-button>
-    <i nz-icon nzType="send" nzTheme="outline"></i>Send
-  </button>
-  <button (click)="clear()" nz-button>
-    <i nz-icon nzType="clear" nzTheme="outline"></i>Clear
-  </button>
-  <br />
+  <div class="b-btn">
+    <button (click)="clear()" nz-button>
+      <i nz-icon nzType="clear" nzTheme="outline"></i>Clear
+    </button>
+    <button (click)="send()" nz-button>
+      <i nz-icon nzType="send" nzTheme="outline"></i>Send
+    </button>
+  </div>
   <form>
     <textarea
       name="txt"
-      placeholder="input text"
       [(ngModel)]="text"
+      placeholder="input text"
       (keydown.enter)="send()"
       spellcheck="false"
     ></textarea>

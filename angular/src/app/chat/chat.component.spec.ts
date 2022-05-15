@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { environment } from 'src/environments/environment';
+import { GoChatComponent } from './go-chat.component';
 import { ChatComponent } from './chat.component';
+
+const ChatCompo: any = environment.go ? GoChatComponent : ChatComponent;
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -8,13 +11,12 @@ describe('ChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChatComponent ]
-    })
-    .compileComponents();
+      declarations: [ChatCompo],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatComponent);
+    fixture = TestBed.createComponent(ChatCompo);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

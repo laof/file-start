@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { GoChatComponent } from './chat/go-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { FilesComponent } from './files/files.component';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -15,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'chat',
-    component: ChatComponent,
+    component: environment.go ? GoChatComponent : ChatComponent,
   },
 ];
 

@@ -1,6 +1,6 @@
 const PROXY_CONFIG = {
   "/api/*": {
-    target: "http://localhost:5200",
+    target: "http://localhost:6200",
     secure: false,
     changeOrigin: true,
     logLevel: "debug",

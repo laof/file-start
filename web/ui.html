@@ -1,13 +1,83 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Shared Service</title>
-    <base href="/ui.html"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="stylesheet" href="styles.47822e33bf6c3a9b00bc.css"></head>
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <title>filesserver</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <style>
+      .spinner {
+        margin: 100px auto;
+        width: 50px;
+        height: 60px;
+        text-align: center;
+        font-size: 10px;
+      }
+
+      .spinner > div {
+        background-color: #1890ff;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+      }
+
+      .spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+      }
+
+      .spinner .rect3 {
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+      }
+
+      .spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+      }
+
+      .spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+      }
+
+      @-webkit-keyframes stretchdelay {
+        0%,
+        40%,
+        100% {
+          -webkit-transform: scaleY(0.4);
+        }
+        20% {
+          -webkit-transform: scaleY(1);
+        }
+      }
+
+      @keyframes stretchdelay {
+        0%,
+        40%,
+        100% {
+          transform: scaleY(0.4);
+          -webkit-transform: scaleY(0.4);
+        }
+        20% {
+          transform: scaleY(1);
+          -webkit-transform: scaleY(1);
+        }
+      }
+    </style>
+  <style>html{-webkit-tap-highlight-color:transparent}body,html{width:100%;height:100%}*,:after,:before{box-sizing:border-box}html{font-family:sans-serif;line-height:1.15;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-ms-overflow-style:scrollbar;--antd-wave-shadow-color:#1890ff;--scroll-bar:0}body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"}body{margin:0;color:#000000d9;font-size:14px;font-variant:tabular-nums;line-height:1.5715;background-color:#fff;font-feature-settings:"tnum","tnum"}html,body{overflow:hidden}</style><link rel="stylesheet" href="styles.a241b4a8abcb89ef.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.a241b4a8abcb89ef.css"></noscript></head>
   <body>
-    <app-root></app-root>
-  <script src="runtime.91a02d1be9f8a4fe75ea.js" defer></script><script src="polyfills.80e47a8e2355f1ceab2c.js" defer></script><script src="main.0ee447bf61b0c4ca9dc0.js" defer></script></body>
-</html>
+    <div id="first_view_loading" class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+    <div id="main_view_container" style="opacity: 0;">
+      <app-root></app-root>
+    </div>
+  <script src="runtime.5f985bd1b67fecab.js" type="module"></script><script src="polyfills.5a937ee6c3aac3af.js" type="module"></script><script src="main.c452e67870fcb059.js" type="module"></script>
+
+</body></html>

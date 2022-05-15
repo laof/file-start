@@ -1,21 +1,29 @@
 <ul nz-menu nzMode="horizontal" nzTheme="dark">
-  <i
-    nz-icon
-    *ngIf="showShutdown"
-    (click)="shutdown()"
-    class="shutdown"
-    nzType="poweroff"
-    nzTheme="outline"
-  ></i>
-  <i nz-icon (click)="scan()" class="scan" nzType="scan" nzTheme="outline"></i>
-
   <li nz-menu-item nzMatchRouter>
     <i nz-icon nzType="share-alt" nzTheme="outline"></i>
-    <a routerLink="files">File</a>
+    <a routerLink="files"> File</a>
   </li>
-  <li nz-menu-item nzMatchRouter>
+  <li nz-menu-item nzMatchRouter class="latest">
     <i nz-icon nzType="wechat" nzTheme="outline"></i>
-    <a routerLink="chat">Chat</a>
+    <a routerLink="chat"> Chat</a>
+  </li>
+
+  <li class="icon-s">
+    <i
+      nz-icon
+      *ngIf="showShutdown"
+      (click)="shutdown()"
+      class="shutdown"
+      nzType="poweroff"
+      nzTheme="outline"
+    ></i>
+    <i
+      nz-icon
+      (click)="scan()"
+      class="scan"
+      nzType="scan"
+      nzTheme="outline"
+    ></i>
   </li>
 </ul>
 

@@ -12,7 +12,6 @@ import {
   ViewModeService,
 } from '../shared/service/storage.service';
 import { saveAs } from 'file-saver';
-import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { toSize } from '../shared/common';
 import { UploadComponent } from '../upload/upload.component';
 
