@@ -1,7 +1,7 @@
 {
   "name": "fs-share",
-  "version": "1.0.0",
-  "description": "a file service in LAN",
+  "version": "1.0.1",
+  "description": "A file server, You can upload and download files",
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",

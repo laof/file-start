@@ -1,9 +1,9 @@
 # fs-share
-A File Service in LAN, You can upload and download files on different devices,Computer to computer, phone to computer, etc.
+A file server in LAN, You can upload and download files on different devices, Computer to computer or phone to computer, etc.
 # start
-* Install npm package globally npm -g install fs-share
+* Install npm package globally npm install -g fs-share
 * Go to the folder you want to serve
-* Run the server file server
+* Run fs command to start the service
 
 ![image](https://laof.github.io/img/fs/readme.png)
 
