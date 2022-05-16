@@ -1,6 +1,6 @@
 {
-  "name": "file_server",
-  "version": "0.1.0",
+  "name": "fs-share",
+  "version": "1.0.0",
   "description": "a file service in LAN",
   "main": "index.js",
   "scripts": {
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/laof/file_server.git"
+    "url": "git+https://github.com/laof/fs-share.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/laof/file_server/issues"
+    "url": "https://github.com/laof/fs-share/issues"
   },
   "files": [
     "web",
@@ -35,7 +35,7 @@
     "download",
     "sharing"
   ],
-  "homepage": "https://github.com/laof/file_server#readme",
+  "homepage": "https://github.com/laof/fs-share#readme",
   "dependencies": {
     "directory-tree": "^2.2.1",
     "express": "^4.16.4",
