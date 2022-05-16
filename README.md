@@ -1,5 +1,5 @@
 # file_server
-A Simple File Sharing Service in LAN, You can upload and download files on different devices,Computer to computer, phone to computer, etc.
+A File Service in LAN, You can upload and download files on different devices,Computer to computer, phone to computer, etc.
 # Network Neighborhood
 
 ![image](https://laof.github.io/img/fs/readme.png)
