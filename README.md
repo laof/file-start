@@ -1,7 +1,7 @@
-# fs-share
+# file-start
 A file server in LAN, You can upload and download files on different devices, Computer to computer or phone to computer, etc.
 # start
-* Install npm package globally npm install -g fs-share
+* Install npm package globally npm install -g file-start
 * Go to the folder you want to serve
 * Run fs command to start the service
 
@@ -9,7 +9,7 @@ A file server in LAN, You can upload and download files on different devices, Co
 
 # Installation
 ```
-$ npm install -g fs-share
+$ npm install -g file-start
 ```
 # Usage
 Use by default
