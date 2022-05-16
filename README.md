@@ -1,5 +1,5 @@
-# files_server
-A Simple File Sharing Service in LAN
+# shared-files
+A Simple File Sharing Service in LAN, You can upload and download files on different devices,Computer to computer, phone to computer, etc.
 # Network Neighborhood
 
 # Installation
@@ -7,9 +7,18 @@ A Simple File Sharing Service in LAN
 $ npm install -g shared-files
 ```
 # Usage
+Use by default
 ```
-$ shared [8083]
+$ sf
+http://localhost:6200
+http://192.168.1.123:6200
+```
+Custom port
+```
+$ sf 6785
+http://localhost:6785
+http://192.168.1.123:6785
 ```
 # open
 
-- http://192.168.1.94:8083/ui.html
+- http://192.168.1.123:6200

@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
-    "build-node": "node scripts/build.js"
+    "build": "node scripts/build.js"
   },
   "bin": {
-    "shared": "./index.js"
+    "fss": "./index.js"
   },
   "engines": {
     "node": ">= 8.0.0"
