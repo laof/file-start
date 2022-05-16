@@ -1,6 +1,6 @@
 {
   "name": "files_server",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A Simple File Sharing Service in LAN",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,8 @@
     "share",
     "file",
     "upload",
+    "download",
+    "file server",
     "shared files",
     "Network Neighborhood",
     "LAN"
