@@ -2,6 +2,10 @@
 A Simple File Sharing Service in LAN, You can upload and download files on different devices,Computer to computer, phone to computer, etc.
 # Network Neighborhood
 
+![image](https://laof.github.io/img/sf/cmd.png)
+![image](https://laof.github.io/img/sf/chrome.png)
+![image](https://laof.github.io/img/sf/phone.jpg)
+
 # Installation
 ```
 $ npm install -g shared-files
