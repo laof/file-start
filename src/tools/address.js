@@ -1,14 +1,15 @@
 const interfaces = require('os').networkInterfaces();
+const ips = [];
 
-const getNetworkAddress = () => {
+try {
   for (const name of Object.keys(interfaces)) {
     for (const interface of interfaces[name]) {
       const { address, family, internal } = interface;
       if (family === 'IPv4' && !internal) {
-        return address;
+        ips.push(address);
       }
     }
   }
-};
+} catch (e) {}
 
-module.exports = getNetworkAddress();
+module.exports = ips;

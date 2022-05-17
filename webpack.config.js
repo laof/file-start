@@ -10,7 +10,7 @@ var config = {
     filename: 'index.js',
   },
   optimization: {
-    minimize: false,
+    minimize: true,
   },
   plugins: [
     new webpack.BannerPlugin({

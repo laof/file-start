@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { socket } = require('./src/socket');
-const { sharedPath, hostUrl, port } = require('./src/config');
+const { sharedPath, IPs, port } = require('./src/config');
 const app = express();
 const http = require('http').Server(app);
 // const token = 'a'+(new Date().getTime().toString())
@@ -27,7 +27,10 @@ app.use('/api', require('./src/router'));
 app.use(express.static(web));
 app.use(express.static(sharedPath));
 
+
 http.listen(port, () => {
   console.log('http://localhost:' + port);
-  console.log(hostUrl);
+  IPs.forEach((ip)=>{
+    console.log(`http://${ip}:${port}`)
+  })
 });
