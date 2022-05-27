@@ -8,6 +8,7 @@ function list(req, res) {
   const map = dirTree(
     sharedPath,
     {
+      attributes: ['size', 'type', 'extension'],
       /** split flag: '\' */
       normalizePath: true,
     },
