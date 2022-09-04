@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const multiparty = require('multiparty');
-const { sharedPath } = require('../config');
+import fs from 'fs';
+import path from 'path';
+import multiparty from 'multiparty';
+import { sharedPath } from '../config.js';
 
 function getNewPate(pathstr, fileName) {
   let exists = true;
@@ -70,4 +70,4 @@ function upload(req, res) {
   });
 }
 
-module.exports = upload;
+export default upload;

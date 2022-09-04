@@ -1,9 +1,14 @@
-const express = require('express');
-const path = require('path');
-const { socket } = require('./src/socket');
-const { sharedPath, IPs, port } = require('./src/config');
+
+import express from 'express';
+import { resolve, join } from 'path';
+import { Server } from 'http';
+import router from './src/router/index.js';
+import { listen } from './src/socket.js';
+import { sharedPath, IPs, port } from './src/config.js';
+
 const app = express();
-const http = require('http').Server(app);
+const http = Server(app);
+
 // const token = 'a'+(new Date().getTime().toString())
 // app.all("*", (req, res, next) => {
 //   const m = req.method.toLocaleLowerCase();
@@ -18,11 +23,11 @@ const http = require('http').Server(app);
 //   next();
 // });
 
-const web = path.join(__dirname, 'web');
+const web = join(resolve(), 'web');
 
-socket.listen(http);
+listen(http);
 
-app.use('/api', require('./src/router'));
+app.use('/api', router);
 
 app.use(express.static(web));
 app.use(express.static(sharedPath));

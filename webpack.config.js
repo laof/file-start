@@ -1,12 +1,14 @@
-const webpack = require('webpack');
+import webpack from 'webpack';
+import { resolve } from 'path';
+import manifest from './package.json' assert { type: 'json' };
 
-var config = {
+export default {
   target: 'node',
   mode: 'production',
   externals: _externals(),
   entry: './main.js',
   output: {
-    path: __dirname,
+    path: resolve(),
     filename: 'index.js',
   },
   optimization: {
@@ -22,7 +24,6 @@ var config = {
 };
 
 function _externals() {
-  const manifest = require('./package.json');
   const dependencies = manifest.dependencies;
   const externals = {};
   for (const p in dependencies) {
@@ -30,5 +31,3 @@ function _externals() {
   }
   return externals;
 }
-
-module.exports = config;

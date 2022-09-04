@@ -2,16 +2,16 @@
   "name": "file-start",
   "version": "1.0.5",
   "description": "A file server, You can upload and download files",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "node main.js",
     "build": "node scripts/build.js"
   },
   "bin": {
-    "fs": "./index.js"
+    "fs": "./main.js"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 14.0.0"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,10 @@
   },
   "files": [
     "web",
+    "src",
     "package.json",
     "README.md",
-    "index.js"
+    "main.js"
   ],
   "keywords": [
     "file",
@@ -42,7 +43,5 @@
     "multiparty": "^4.2.3",
     "socket.io": "^4.5.1"
   },
-  "devDependencies": {
-    "webpack": "^5.10.2"
-  }
+  "type": "module"
 }

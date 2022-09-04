@@ -1,3 +1,5 @@
+import { Server } from 'socket.io';
+
 const onlineUsers = {}; //统计客户端登录用户
 const talkList = [];
 let onlineUserCount = 0; //客户端连接数量
@@ -80,18 +82,11 @@ function callback(socket) {
   });
 }
 
-function listen(server) {
-  const io = require('socket.io')(server);
+export function listen(server) {
+  const io = new Server(server);
   io.on('connection', (socket) => callback(socket));
 }
 
-function getSocketHistory() {
+export function getSocketHistory() {
   return talkList;
 }
-
-module.exports = {
-  socket: {
-    listen,
-  },
-  getSocketHistory,
-};

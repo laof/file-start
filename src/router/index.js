@@ -1,17 +1,21 @@
-const router = require('express').Router();
-const { hostUrl } = require('../config');
-const { getSocketHistory } = require('../socket');
-const dirList = require('./dir-list');
-const upload = require('./upload');
-const exec = require('child_process').exec;
-const platform = require('os').platform();
+import { Router } from 'express';
+import { hostUrl } from '../config.js';
+import { getSocketHistory } from '../socket.js';
+import dirList from './dir-list.js';
+import upload from './upload.js';
+import { exec } from 'child_process';
+import { platform } from 'os';
+
+const p = platform();
+
+const router = Router();
 
 router.post('/list', dirList);
 
 router.post('/upload', upload);
 
 router.post('/host', (req, res) => {
-  res.send({ host: hostUrl, shutdown: platform === 'win32' });
+  res.send({ host: hostUrl, shutdown: p === 'win32' });
 });
 
 router.post('/download', (req, res, next) => {
@@ -36,4 +40,4 @@ router.post('/shutdown', (req, res) => {
   res.send({});
 });
 
-module.exports = router;
+export default router;

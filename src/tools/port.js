@@ -14,4 +14,4 @@ if (argv.length <= 3) {
   }
 }
 
-module.exports = port;
+export default port;

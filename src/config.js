@@ -1,11 +1,8 @@
-const path = require('path');
-const sharedPath = path.join(process.cwd());
-const IPs = require('./tools/address');
-const port = require('./tools/port');
+import path from 'path';
+import _ips from './tools/address.js';
+import _p from './tools/port.js';
 
-module.exports = {
-  port,
-  IPs,
-  hostUrl: `http://${IPs[0]}:${port}`,
-  sharedPath,
-};
+export const sharedPath = path.join(process.cwd());
+export const hostUrl = `http://${_ips[0]}:${_p}`;
+export const IPs = _ips;
+export const port = _p;

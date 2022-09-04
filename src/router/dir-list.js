@@ -1,9 +1,9 @@
-const dirTree = require('directory-tree');
-const path = require('path');
-const { sharedPath } = require('../config');
+import dirTree from 'directory-tree';
+import path from 'path';
+import { sharedPath } from '../config.js';
 const replacePath = sharedPath.split(path.sep).join('/');
 
-function list(req, res) {
+export default function (req, res) {
   let success = false;
   const map = dirTree(
     sharedPath,
@@ -22,5 +22,3 @@ function list(req, res) {
   map.success = success;
   res.send(map);
 }
-
-module.exports = list;
