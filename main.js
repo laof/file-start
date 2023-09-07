@@ -1,12 +1,13 @@
 #! /usr/bin/env node
 
 import express from 'express';
-import { resolve, join } from 'path';
+import { join, dirname } from 'path';
 import { Server } from 'http';
 import router from './src/router/index.js';
 import { listen } from './src/socket.js';
 import { sharedPath, IPs, port } from './src/config.js';
-
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const http = Server(app);
 
@@ -24,7 +25,7 @@ const http = Server(app);
 //   next();
 // });
 
-const web = join(resolve(), 'web');
+const web = join(__dirname, 'web');
 
 listen(http);
 
@@ -33,10 +34,9 @@ app.use('/api', router);
 app.use(express.static(web));
 app.use(express.static(sharedPath));
 
-
 http.listen(port, () => {
   console.log('http://localhost:' + port);
-  IPs.forEach((ip)=>{
-    console.log(`http://${ip}:${port}`)
-  })
+  IPs.forEach((ip) => {
+    console.log(`http://${ip}:${port}`);
+  });
 });

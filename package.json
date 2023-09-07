@@ -1,6 +1,6 @@
 {
   "name": "file-start",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A file server, You can upload and download files",
   "main": "main.js",
   "scripts": {
