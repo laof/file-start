@@ -7,6 +7,8 @@ import router from './src/router/index.js';
 import { listen } from './src/socket.js';
 import { sharedPath, IPs, port } from './src/config.js';
 import { fileURLToPath } from 'url';
+import open, { openApp, apps } from 'open';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const http = Server(app);
@@ -33,6 +35,8 @@ app.use('/api', router);
 
 app.use(express.static(web));
 app.use(express.static(sharedPath));
+
+setTimeout(() => open('http://localhost:' + port), 1000);
 
 http.listen(port, () => {
   console.log('http://localhost:' + port);
